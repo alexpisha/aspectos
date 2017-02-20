@@ -26,5 +26,4 @@ public class Reproductor {
 		public void Stop() throws Exception {
 		  player.stop();
 		}
-	
 }
