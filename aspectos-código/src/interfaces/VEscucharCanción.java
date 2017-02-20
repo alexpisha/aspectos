@@ -95,5 +95,6 @@ public class VEscucharCanción extends JFrame {
 		lblNewLabel_1.setBounds(0, 0, 589, 390);
 		contentPane.add(lblNewLabel_1);
 		
+		
 	}
 }
