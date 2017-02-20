@@ -80,14 +80,22 @@ public class Menu extends JFrame {
 
 		
 
-		JButton btnCargarPartida = new JButton("Reproducir");
-		btnCargarPartida.setBounds(182, 187, 138, 33);
-		btnCargarPartida.setForeground(Color.WHITE);
-		btnCargarPartida.setBackground(new Color(73, 106, 144));
-		btnCargarPartida.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnCargarPartida.setBorder(new MatteBorder(2, 2, 2, 2, new Color(255, 255, 255)));
+		JButton btnReproducir = new JButton("Reproducir");
+		btnReproducir.setBounds(182, 187, 170, 33);
+		btnReproducir.setForeground(Color.WHITE);
+		btnReproducir.setBackground(new Color(176, 26, 36));
+		btnReproducir.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnReproducir.setBorder(new MatteBorder(2, 2, 2, 2, new Color(255, 255, 255)));
+		contentPane.add(btnReproducir);
 		
-		contentPane.add(btnCargarPartida);
+		JButton btnGestionarListas = new JButton("Gestionar listas");
+		btnGestionarListas.setBounds(182, 250, 170, 33);
+		btnGestionarListas.setForeground(Color.WHITE);
+		btnGestionarListas.setBackground(new Color(176, 26, 36));
+		btnGestionarListas.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnGestionarListas.setBorder(new MatteBorder(2, 2, 2, 2, new Color(255, 255, 255)));
+		
+		contentPane.add(btnGestionarListas);
 
 		
 
