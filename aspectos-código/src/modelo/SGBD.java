@@ -13,8 +13,8 @@ public class SGBD {
 	private Statement sentencia;
 	private ResultSet rs;
 	private static SGBD miSGBD = null;
-	private String usuarioBD="";
-	private String pswBD ="";
+	private String usuarioBD="Xamartinez283";
+	private String pswBD ="LoohtS5Fcc";
 
 	private SGBD() {
 		try {
@@ -24,7 +24,7 @@ public class SGBD {
 		}
 		// Open connection
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://galan.ehu.eus/Xohernandez018_bdBuscaminas",
+			connection = DriverManager.getConnection("jdbc:mysql://galan.ehu.eus/Xamartinez283_Reproductor",
 					usuarioBD, pswBD);
 			connection.setAutoCommit(true);
 			sentencia = connection.createStatement();
@@ -77,7 +77,7 @@ public class SGBD {
 	public boolean existeJugador(String pNombre) {
 		int contador = 0;
 		try {
-			rs = sentencia.executeQuery("Select count(*) from jugador where nombre='" + pNombre + "';");
+			rs = sentencia.executeQuery("Select count(*) from Usuario where nombre='" + pNombre + "';");
 			rs.next();
 			contador = rs.getInt("COUNT(*)");
 		} catch (SQLException e) {
@@ -98,7 +98,7 @@ public class SGBD {
 		int estado = 0;
 		try {
 			PreparedStatement statement = connection.prepareStatement(
-					"insert into jugador(nombre,contrasena) values('" + pNombre + "','" + pContrasena + "');");
+					"insert into Usuario(nombre,contrasena,email) values('" + pNombre + "','" + pContrasena + "aaa"+"');");
 			statement.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
