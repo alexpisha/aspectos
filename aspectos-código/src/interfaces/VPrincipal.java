@@ -107,7 +107,7 @@ public class VPrincipal extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBackground(Color.white);
-		lblNewLabel_1.setIcon(new ImageIcon(VEscucharCanción.class.getResource("/imagenes/principal.png")));
+		lblNewLabel_1.setIcon(new ImageIcon(VEscucharCancion.class.getResource("/imagenes/principal.png")));
 		lblNewLabel_1.setBounds(5, 5, 484, 308);
 		contentPane.add(lblNewLabel_1);
 		

@@ -135,7 +135,7 @@ public class VIdentificarse extends JFrame {
 		panelInsertar.add(btnAceptar);
 		
 		JLabel fondo = new JLabel();
-		fondo.setIcon(new ImageIcon(VEscucharCanción.class.getResource("/imagenes/ecualizador1.gif")));
+		fondo.setIcon(new ImageIcon(VEscucharCancion.class.getResource("/imagenes/ecualizador1.gif")));
 		fondo.setBounds(5, 45, 484, 308);
 		panelInsertar.add(fondo);
 		
