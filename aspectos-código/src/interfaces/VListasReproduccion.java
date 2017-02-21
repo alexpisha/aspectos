@@ -1,12 +1,14 @@
 package interfaces;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -62,7 +64,8 @@ public class VListasReproduccion extends JFrame  {
 		
 
 		// ----------------- SONIDO ------------------------
-		
+		Image icono = new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage();
+		setIconImage(icono);
 		//fondo = new ImageIcon(getClass().getResource("/imagenes/ecualizador1.gif")).getImage();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 527, 367);
@@ -107,7 +110,7 @@ public class VListasReproduccion extends JFrame  {
 		
 		btnCancelar.setBounds(58, 272, 115, 45);
 		contentPane.add(btnCancelar);
-
+		centrarFrame();
 	}
 
 	
@@ -120,6 +123,17 @@ public class VListasReproduccion extends JFrame  {
 	private void cerrar() {
 		this.dispose();
 	}
-
+	public void centrarFrame() {
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension frameSize = getSize(); // Tama�o del frame actual (ancho x
+											// alto)
+		if (frameSize.height > screenSize.height) {
+			frameSize.height = screenSize.height;
+		}
+		if (frameSize.width > screenSize.width) {
+			frameSize.width = screenSize.width;
+		}
+		setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
+	}
 
 }
