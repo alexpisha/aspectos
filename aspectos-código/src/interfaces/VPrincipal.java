@@ -66,7 +66,10 @@ public class VPrincipal extends JFrame {
 		btnIdentificarse.setForeground(SystemColor.text);
 		btnIdentificarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VIdentificarse.main(null);
+				VIdentificarse v = new VIdentificarse();
+				dispose();
+				v.setVisible(true);
+				//VIdentificarse.main(null);
 			}
 		});
 		

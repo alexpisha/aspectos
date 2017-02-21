@@ -22,6 +22,9 @@ import javax.swing.border.EmptyBorder;
 
 import javax.swing.SwingConstants;
 
+import modelo.ControladorMusica;
+import modelo.SGBD;
+
 public class VIdentificarse extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -107,27 +110,23 @@ public class VIdentificarse extends JFrame {
 	            if(user.isEmpty() || pass.isEmpty()){
 					JOptionPane.showMessageDialog(null, "Es necesario rellenar todos los campos. Pulsa aceptar e inténtalo de nuevo.");
 	            }else{
-/*					try {
-						if(ControladorUsuario.getControladorUsuario().existeUsuario(user)){
-							boolean coincide = false;
-							coincide = Buscaminas.getBuscaminas().coincidePassword(user, pass);
-							if(coincide){
-								Partida.getPartida().establecerDatosUsuario(user, pass, "");
-						   		VMenu.main(null);
-								setVisible(false);
-							}
-							else{
-								JOptionPane.showMessageDialog(null, "El usuario y la contraseña no coinciden. Pulsa aceptar e inténtalo de nuevo.");
-								setVisible(true);
-							}	
+					if(SGBD.getSGBD().existeUsuario(user)){
+						boolean coincide = false;
+						coincide= SGBD.getSGBD().validarUsuario(user, pass);
+						if(coincide){
+							String email = SGBD.getSGBD().obtenerCorreo(user);
+							ControladorMusica.getControladorMusica().establecerDatosUsuario(user, pass, email);
+					   		VMenu.main(null);
+							setVisible(false);
 						}
 						else{
-							JOptionPane.showMessageDialog(null, "Los sentimos. El usuario no se encuentra registrado en el sistema.");
-							
-						}
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}*/
+							JOptionPane.showMessageDialog(null, "El usuario y la contraseña no coinciden. Pulsa aceptar e inténtalo de nuevo.");
+							setVisible(true);
+						}	
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "Los sentimos. El usuario no se encuentra registrado en el sistema.");
+					}
 	        }
 	    }});
 

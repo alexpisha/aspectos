@@ -74,14 +74,26 @@ public class SGBD {
 	 * @param pNombre
 	 * @return
 	 */
-	public boolean existeJugador(String pNombre) {
+	
+	public String obtenerCorreo(String pUser) {
+		String resul = "";
+		try{
+			rs = sentencia.executeQuery("Select email from Usuario where nombre='" + pUser + "';");
+			rs.next();
+			resul = rs.getString("email");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return resul;
+	}
+	
+	public boolean existeUsuario(String pNombre) {
 		int contador = 0;
 		try {
 			rs = sentencia.executeQuery("Select count(*) from Usuario where nombre='" + pNombre + "';");
 			rs.next();
 			contador = rs.getInt("COUNT(*)");
 		} catch (SQLException e) {
-
 			e.printStackTrace();
 		}
 		// Si el contador es igual a 0 no existe el jugador
@@ -115,10 +127,10 @@ public class SGBD {
 	 * @param pContrasena
 	 * @return
 	 */
-	public boolean validarJugador(String pNombre, String pContrasena) {
+	public boolean validarUsuario(String pNombre, String pContrasena) {
 		boolean resultado = false;
 		try {
-			rs = sentencia.executeQuery("Select contrasena from jugador where nombre='" + pNombre + "';");
+			rs = sentencia.executeQuery("Select contrasena from Usuario where nombre='" + pNombre + "';");
 			rs.next();
 			resultado = rs.getString(1).equals(pContrasena);
 		} catch (SQLException e) {
