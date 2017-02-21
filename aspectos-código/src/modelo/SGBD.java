@@ -98,7 +98,7 @@ public class SGBD {
 		int estado = 0;
 		try {
 			PreparedStatement statement = connection.prepareStatement(
-					"insert into Usuario(nombre,contrasena,email) values('" + pNombre + "','" + pContrasena + "aaa"+"');");
+					"insert into Usuario(nombre,contrasena,email) values('" + pNombre + "','" + pContrasena + "','" +"aaa"+"');");
 			statement.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
