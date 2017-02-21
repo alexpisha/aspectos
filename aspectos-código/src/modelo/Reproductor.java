@@ -7,6 +7,8 @@ public class Reproductor {
 
 	private BasicPlayer player = new BasicPlayer();
 	
+	public Reproductor(){}
+	
 		public void Play() throws Exception {
 		  player.play();
 		}
