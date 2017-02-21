@@ -13,22 +13,18 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-
-
-
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import modelo.ControladorMusica;
 import modelo.SGBD;
 
-public class VIdentificarse extends JFrame {
+public class VRegistrarse extends JFrame {
 
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textUser;
 	private JTextField textPass;
-
+	private JTextField textEmail;
 
 	/**
 	 * Launch the application.
@@ -37,7 +33,7 @@ public class VIdentificarse extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VIdentificarse frame = new VIdentificarse();
+					VRegistrarse frame = new VRegistrarse();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,7 +45,7 @@ public class VIdentificarse extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VIdentificarse() {
+	public VRegistrarse() {
 		setTitle("EUITI MUSIC PLAYER 3");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 500, 350);
@@ -66,7 +62,7 @@ public class VIdentificarse extends JFrame {
 	
 	private JPanel getPanelTitulo(){
 		JPanel panelTitulo = new JPanel();
-		JLabel lblBienvenida = new JLabel("Identificarse");
+		JLabel lblBienvenida = new JLabel("Registrarse");
 		lblBienvenida.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblBienvenida.setFont(new Font("Arial", Font.BOLD, 26));
 		panelTitulo.add(lblBienvenida);
@@ -81,49 +77,54 @@ public class VIdentificarse extends JFrame {
 		
 		JLabel lblUser = new JLabel("Usuario:");
 		lblUser.setFont(new Font("Arial", Font.PLAIN, 17));
-		lblUser.setBounds(23, 30, 71, 46);
+		lblUser.setBounds(23, 17, 71, 46);
 		panelInsertar.add(lblUser);
 		
 		textUser = new JTextField();
-		textUser.setBounds(138, 43, 272, 22);
+		textUser.setBounds(138, 30, 272, 22);
 		panelInsertar.add(textUser);
 		textUser.setColumns(10);
 			
 		JLabel lblPass = new JLabel("Contrase\u00F1a:");
 		lblPass.setFont(new Font("Arial", Font.PLAIN, 17));
-		lblPass.setBounds(23, 94, 97, 22);
+		lblPass.setBounds(23, 76, 97, 22);
 		panelInsertar.add(lblPass);
 		
 		textPass = new JTextField();
-		textPass.setBounds(138, 95, 272, 23);
+		textPass.setBounds(138, 75, 272, 23);
 		panelInsertar.add(textPass);
 		textPass.setColumns(10);
+		
+		JLabel lblEmail = new JLabel("Email:");
+		lblEmail.setFont(new Font("Arial", Font.PLAIN, 17));
+		lblEmail.setBounds(23, 120, 97, 22);
+		panelInsertar.add(lblEmail);
+		
+		textEmail = new JTextField();
+		textEmail.setColumns(10);
+		textEmail.setBounds(138, 121, 272, 23);
+		panelInsertar.add(textEmail);
 
+			
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
 	            String user=textUser.getText();
 	            String pass= textPass.getText();
-	            if(user.isEmpty() || pass.isEmpty()){
+	            String email= textEmail.getText();
+	            if(user.isEmpty() || email.isEmpty() ||pass.isEmpty()){
 					JOptionPane.showMessageDialog(null, "Es necesario rellenar todos los campos. Pulsa aceptar e inténtalo de nuevo.");
 	            }else{
-					if(SGBD.getSGBD().existeUsuario(user)){
-						boolean coincide = false;
-						coincide= SGBD.getSGBD().validarUsuario(user, pass);
-						if(coincide){
-							String email = SGBD.getSGBD().obtenerCorreo(user);
-							ControladorMusica.getControladorMusica().establecerDatosUsuario(user, pass, email);
-					   		VMenu menu = new VMenu();
-							menu.setVisible(true);
-							dispose();
-						}
-						else{
-							JOptionPane.showMessageDialog(null, "El usuario y la contraseña no coinciden. Pulsa aceptar e inténtalo de nuevo.");
-							setVisible(true);
-						}	
+					if(!SGBD.getSGBD().existeUsuario(user)){
+						SGBD.getSGBD().ingresarJugador(user,  pass, email);
+						ControladorMusica.getControladorMusica().establecerDatosUsuario(user, pass, email);
+						VMenu menu = new VMenu();
+						menu.setVisible(true);
+						setVisible(false);
+						dispose();
 					}
 					else{
-						JOptionPane.showMessageDialog(null, "Los sentimos. El usuario no se encuentra registrado en el sistema.");
+						JOptionPane.showMessageDialog(null, "Ya existe un usuario con el mismo nombre");
 					}
 	        }
 	    }});
@@ -131,6 +132,7 @@ public class VIdentificarse extends JFrame {
 		btnAceptar.setBounds(138, 211, 97, 25);
 		panelInsertar.add(btnAceptar);
 				
+		
 		
 		JButton cancelar = new JButton("Cancelar");
 		cancelar.addActionListener(new ActionListener() {
@@ -143,13 +145,12 @@ public class VIdentificarse extends JFrame {
 		cancelar.setBounds(274, 211, 97, 25);
 		panelInsertar.add(cancelar);
 		
-		
 		JLabel fondo = new JLabel();
 		fondo.setIcon(new ImageIcon(VEscucharCancion.class.getResource("/imagenes/ecualizador1.gif")));
 		fondo.setBounds(5, 45, 484, 308);
 		panelInsertar.add(fondo);
+
 		
 		return panelInsertar;
-	}	
-		
+	}
 }

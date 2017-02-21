@@ -106,11 +106,11 @@ public class SGBD {
 	 * @param pContrasena
 	 * @return
 	 */
-	public int ingresarJugador(String pNombre, String pContrasena) {
+	public int ingresarJugador(String pNombre, String pContrasena, String pEmail) {
 		int estado = 0;
 		try {
 			PreparedStatement statement = connection.prepareStatement(
-					"insert into Usuario(nombre,contrasena,email) values('" + pNombre + "','" + pContrasena + "','" +"aaa"+"');");
+					"insert into Usuario(nombre,contrasena,email) values('" + pNombre + "','" + pContrasena + "','" +pEmail+"');");
 			statement.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

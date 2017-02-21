@@ -87,6 +87,9 @@ public class VPrincipal extends JFrame {
 		botonRegistrarse.setForeground(SystemColor.text);
 		botonRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				VRegistrarse v = new VRegistrarse();
+				dispose();
+				v.setVisible(true);
 			}
 		});
 		

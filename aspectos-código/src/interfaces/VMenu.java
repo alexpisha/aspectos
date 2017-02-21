@@ -52,46 +52,67 @@ public class VMenu extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		Image icono = new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage();
-		setIconImage(icono);
+	/*	Image icono = new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage();
+		setIconImage(icono);*/
+		
+		
 		
 		ImageIcon icon= new ImageIcon(VPrincipal.class.getResource("/imagenes/botones.jpg"));
 		Image image = icon.getImage();
-		Image boton = image.getScaledInstance(163, 47,  java.awt.Image.SCALE_SMOOTH);
+		Image boton = image.getScaledInstance(250, 47,  java.awt.Image.SCALE_SMOOTH);
 		
 		
-		JButton btnIdentificarse = new JButton("Reproducir", new ImageIcon(boton));
-		btnIdentificarse.setBackground(SystemColor.desktop);
-		btnIdentificarse.setForeground(SystemColor.text);
-		btnIdentificarse.addActionListener(new ActionListener() {
+		JButton btnReproducir = new JButton("Reproducir canciones", new ImageIcon(boton));
+		btnReproducir.setBackground(SystemColor.desktop);
+		btnReproducir.setForeground(SystemColor.text);
+		btnReproducir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				VIdentificarse.main(null);
 			}
 		});
 		
 
-		btnIdentificarse.setFont(new Font("Tahoma", Font.BOLD, 19));
-		btnIdentificarse.setBounds(160, 91, 200, 47);
-		btnIdentificarse.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnIdentificarse.setVerticalTextPosition(SwingConstants.CENTER);
-		contentPane.add(btnIdentificarse);
+		btnReproducir.setFont(new Font("Tahoma", Font.BOLD, 19));
+		btnReproducir.setBounds(149, 59, 245, 40);
+		btnReproducir.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnReproducir.setVerticalTextPosition(SwingConstants.CENTER);
+		contentPane.add(btnReproducir);
 		
 		
 		
-		JButton botonRegistrarse = new JButton("Gestionar Listas", new ImageIcon(boton));
-		botonRegistrarse.setBackground(SystemColor.desktop);
-		botonRegistrarse.setForeground(SystemColor.text);
-		botonRegistrarse.addActionListener(new ActionListener() {
+		JButton botonGestionar = new JButton("Gestionar Listas", new ImageIcon(boton));
+		botonGestionar.setBackground(SystemColor.desktop);
+		botonGestionar.setForeground(SystemColor.text);
+		botonGestionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
 		
-		botonRegistrarse.setFont(new Font("Tahoma", Font.BOLD, 19));
-		botonRegistrarse.setBounds(160, 187, 200, 47);
-		botonRegistrarse.setHorizontalTextPosition(SwingConstants.CENTER);
-		botonRegistrarse.setVerticalTextPosition(SwingConstants.CENTER);
-		contentPane.add(botonRegistrarse);
+		botonGestionar.setFont(new Font("Tahoma", Font.BOLD, 19));
+		botonGestionar.setBounds(149, 115, 245, 40);
+		botonGestionar.setHorizontalTextPosition(SwingConstants.CENTER);
+		botonGestionar.setVerticalTextPosition(SwingConstants.CENTER);
+		contentPane.add(botonGestionar);
 		
+		
+		JButton btnPerfil = new JButton("Modificar Perfil", new ImageIcon(boton));
+		btnPerfil.setBackground(SystemColor.desktop);
+		btnPerfil.setForeground(Color.WHITE);
+		btnPerfil.setFont(new Font("Tahoma", Font.BOLD, 19));
+		btnPerfil.setBounds(149, 177, 245, 40);
+		btnPerfil.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnPerfil.setVerticalTextPosition(SwingConstants.CENTER);
+		contentPane.add(btnPerfil);
+		
+		
+		JButton btnSesion = new JButton("Cerrar Sesion", new ImageIcon(boton));
+		btnSesion.setBackground(SystemColor.desktop);
+		btnSesion.setForeground(Color.WHITE);
+		btnSesion.setFont(new Font("Tahoma", Font.BOLD, 19));
+		btnSesion.setBounds(149, 239, 245, 40);
+		btnSesion.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnSesion.setVerticalTextPosition(SwingConstants.CENTER);
+		contentPane.add(btnSesion);
 		
 		
 		
@@ -100,6 +121,8 @@ public class VMenu extends JFrame {
 		lblNewLabel_1.setIcon(new ImageIcon(VEscucharCancion.class.getResource("/imagenes/principal.png")));
 		lblNewLabel_1.setBounds(5, 5, 484, 308);
 		contentPane.add(lblNewLabel_1);
+		
+
 		centrarFrame();
 		
 		
