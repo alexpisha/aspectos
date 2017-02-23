@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -25,6 +26,7 @@ public class VRegistrarse extends JFrame {
 	private JTextField textUser;
 	private JTextField textPass;
 	private JTextField textEmail;
+	private JTextField textPass2;
 
 	/**
 	 * Launch the application.
@@ -77,32 +79,43 @@ public class VRegistrarse extends JFrame {
 		
 		JLabel lblUser = new JLabel("Usuario:");
 		lblUser.setFont(new Font("Arial", Font.PLAIN, 17));
-		lblUser.setBounds(23, 17, 71, 46);
+		lblUser.setBounds(23, 4, 71, 46);
 		panelInsertar.add(lblUser);
 		
 		textUser = new JTextField();
-		textUser.setBounds(138, 30, 272, 22);
+		textUser.setBounds(186, 17, 272, 22);
 		panelInsertar.add(textUser);
 		textUser.setColumns(10);
 			
 		JLabel lblPass = new JLabel("Contrase\u00F1a:");
 		lblPass.setFont(new Font("Arial", Font.PLAIN, 17));
-		lblPass.setBounds(23, 76, 97, 22);
+		lblPass.setBounds(23, 63, 97, 22);
 		panelInsertar.add(lblPass);
 		
-		textPass = new JTextField();
-		textPass.setBounds(138, 75, 272, 23);
+		textPass = new JPasswordField();
+		textPass.setBounds(186, 64, 272, 23);
 		panelInsertar.add(textPass);
 		textPass.setColumns(10);
 		
+		
+		JLabel lblPass2 = new JLabel("Repetir Contrase\u00F1a:");
+		lblPass2.setFont(new Font("Arial", Font.PLAIN, 17));
+		lblPass2.setBounds(23, 111, 151, 22);
+		panelInsertar.add(lblPass2);
+		
+		textPass2 = new JPasswordField();
+		textPass2.setColumns(10);
+		textPass2.setBounds(186, 112, 272, 23);
+		panelInsertar.add(textPass2);
+		
 		JLabel lblEmail = new JLabel("Email:");
 		lblEmail.setFont(new Font("Arial", Font.PLAIN, 17));
-		lblEmail.setBounds(23, 120, 97, 22);
+		lblEmail.setBounds(23, 157, 97, 22);
 		panelInsertar.add(lblEmail);
 		
 		textEmail = new JTextField();
 		textEmail.setColumns(10);
-		textEmail.setBounds(138, 121, 272, 23);
+		textEmail.setBounds(186, 158, 272, 23);
 		panelInsertar.add(textEmail);
 
 			
@@ -116,15 +129,21 @@ public class VRegistrarse extends JFrame {
 					JOptionPane.showMessageDialog(null, "Es necesario rellenar todos los campos. Pulsa aceptar e inténtalo de nuevo.");
 	            }else{
 					if(!SGBD.getSGBD().existeUsuario(user)){
-						SGBD.getSGBD().ingresarJugador(user,  pass, email);
-						ControladorMusica.getControladorMusica().establecerDatosUsuario(user, pass, email);
-						VMenu menu = new VMenu();
-						menu.setVisible(true);
-						setVisible(false);
-						dispose();
+						if(textPass.equals(textPass2)){
+							SGBD.getSGBD().ingresarJugador(user,  pass, email);
+							ControladorMusica.getControladorMusica().establecerDatosUsuario(user, pass, email);
+							VMenu menu = new VMenu();
+							menu.setVisible(true);
+							setVisible(false);
+							dispose();
+						}
+						else{
+							JOptionPane.showMessageDialog(null, "Las contraseñas no se corresponden.");
+
+						}
 					}
 					else{
-						JOptionPane.showMessageDialog(null, "Ya existe un usuario con el mismo nombre");
+						JOptionPane.showMessageDialog(null, "Ya existe un usuario con el mismo nombre.");
 					}
 	        }
 	    }});
@@ -149,6 +168,7 @@ public class VRegistrarse extends JFrame {
 		fondo.setIcon(new ImageIcon(VEscucharCancion.class.getResource("/imagenes/ecualizador1.gif")));
 		fondo.setBounds(5, 45, 484, 308);
 		panelInsertar.add(fondo);
+		
 
 		
 		return panelInsertar;

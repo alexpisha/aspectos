@@ -43,4 +43,8 @@ public class Usuario {
 		return lista;
 	}	
 	
+	public void resetearLista(){
+		lista = new ArrayList<ListaReproduccion>();
+	}
+	
 }

@@ -19,6 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import modelo.ControladorMusica;
+
 public class VMenu extends JFrame {
 
 	private JPanel contentPane;
@@ -67,7 +69,7 @@ public class VMenu extends JFrame {
 		btnReproducir.setForeground(SystemColor.text);
 		btnReproducir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VIdentificarse.main(null);
+				
 			}
 		});
 		
@@ -96,6 +98,13 @@ public class VMenu extends JFrame {
 		
 		
 		JButton btnPerfil = new JButton("Modificar Perfil", new ImageIcon(boton));
+		btnPerfil.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VModificarPerfil v= new VModificarPerfil();
+				v.setVisible(true);
+				dispose();
+			}
+		});
 		btnPerfil.setBackground(SystemColor.desktop);
 		btnPerfil.setForeground(Color.WHITE);
 		btnPerfil.setFont(new Font("Tahoma", Font.BOLD, 19));
@@ -106,6 +115,15 @@ public class VMenu extends JFrame {
 		
 		
 		JButton btnSesion = new JButton("Cerrar Sesion", new ImageIcon(boton));
+		btnSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ControladorMusica.getControladorMusica().resetearListasUsuario();
+				ControladorMusica.getControladorMusica().resetearDatosUsuario();
+				VPrincipal v = new VPrincipal();
+				v.setVisible(true);
+				dispose();
+			}
+		});
 		btnSesion.setBackground(SystemColor.desktop);
 		btnSesion.setForeground(Color.WHITE);
 		btnSesion.setFont(new Font("Tahoma", Font.BOLD, 19));
@@ -129,7 +147,7 @@ public class VMenu extends JFrame {
 	}
 	public void centrarFrame() {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		Dimension frameSize = getSize(); // Tama�o del frame actual (ancho x
+		Dimension frameSize = getSize(); // Tamanio del frame actual (ancho x
 											// alto)
 		if (frameSize.height > screenSize.height) {
 			frameSize.height = screenSize.height;

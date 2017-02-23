@@ -87,6 +87,18 @@ public class SGBD {
 		return resul;
 	}
 	
+	public String obtenerId(String pUser) {
+		String resul = "";
+		try{
+			rs = sentencia.executeQuery("Select id from Usuario where nombre='" + pUser + "';");
+			rs.next();
+			resul = rs.getString("id");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return resul;
+	}
+	
 	public boolean existeUsuario(String pNombre) {
 		int contador = 0;
 		try {

@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -12,25 +13,22 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-
-
-
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import modelo.ControladorMusica;
 import modelo.SGBD;
-import javax.swing.JPasswordField;
+import modelo.Usuario;
 
-public class VIdentificarse extends JFrame {
+public class VModificarPerfil extends JFrame {
 
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textUser;
 	private JTextField textPass;
-	private JPasswordField passwordField;
-
+	private JTextField textEmail;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -39,7 +37,7 @@ public class VIdentificarse extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VIdentificarse frame = new VIdentificarse();
+					VModificarPerfil frame = new VModificarPerfil();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +49,7 @@ public class VIdentificarse extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VIdentificarse() {
+	public VModificarPerfil() {
 		setTitle("EUITI MUSIC PLAYER 3");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 500, 350);
@@ -68,7 +66,7 @@ public class VIdentificarse extends JFrame {
 	
 	private JPanel getPanelTitulo(){
 		JPanel panelTitulo = new JPanel();
-		JLabel lblBienvenida = new JLabel("Identificarse");
+		JLabel lblBienvenida = new JLabel("Modificar Perfil");
 		lblBienvenida.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblBienvenida.setFont(new Font("Arial", Font.BOLD, 26));
 		panelTitulo.add(lblBienvenida);
@@ -86,7 +84,7 @@ public class VIdentificarse extends JFrame {
 		lblUser.setBounds(23, 30, 71, 46);
 		panelInsertar.add(lblUser);
 		
-		textUser = new JTextField();
+		textUser = new JTextField(ControladorMusica.getControladorMusica().getUsuario().getNombre());
 		textUser.setBounds(138, 43, 272, 22);
 		panelInsertar.add(textUser);
 		textUser.setColumns(10);
@@ -97,37 +95,72 @@ public class VIdentificarse extends JFrame {
 		panelInsertar.add(lblPass);
 		
 		
-		textPass = new JPasswordField();
+		textPass = new JPasswordField(ControladorMusica.getControladorMusica().getUsuario().getContrasena());
 		textPass.setBounds(138, 95, 272, 23);
 		panelInsertar.add(textPass);
 		textPass.setColumns(10);
+		
+		JLabel label = new JLabel("Email:");
+		label.setFont(new Font("Arial", Font.PLAIN, 17));
+		label.setBounds(23, 141, 97, 22);
+		panelInsertar.add(label);
+		
+		textField = new JTextField(ControladorMusica.getControladorMusica().getUsuario().getEmail());
+		textField.setColumns(10);
+		textField.setBounds(138, 142, 272, 22);
+		panelInsertar.add(textField);
 
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
 	            String user=textUser.getText();
 	            String pass= textPass.getText();
-	            if(user.isEmpty() || pass.isEmpty()){
-					JOptionPane.showMessageDialog(null, "Es necesario rellenar todos los campos. Pulsa aceptar e inténtalo de nuevo.");
+	            String email= textPass.getText();
+	            Usuario usuarioActual = ControladorMusica.getControladorMusica().getUsuario();
+	            int id= Integer.parseInt(SGBD.getSGBD().obtenerId(usuarioActual.getNombre()));
+	            System.out.println("el id es"+id);
+	            
+	            
+	            if(user.isEmpty() && pass.isEmpty() && email.isEmpty()){
+					JOptionPane.showMessageDialog(null, "No has rellenado nigún campo. Pulsa aceptar e inténtalo de nuevo.");
 	            }else{
-					if(SGBD.getSGBD().existeUsuario(user)){
-						boolean coincide = false;
-						coincide= SGBD.getSGBD().validarUsuario(user, pass);
-						if(coincide){
-							String email = SGBD.getSGBD().obtenerCorreo(user);
-							ControladorMusica.getControladorMusica().establecerDatosUsuario(user, pass, email);
-					   		VMenu menu = new VMenu();
-							menu.setVisible(true);
-							dispose();
+	            	if(!user.isEmpty()){
+	            		try {
+		            		String sql= "Update Usuario set nombre='"+user+"' where id='"+id+"'";
+							SGBD.getSGBD().actualizar(sql);
+							ControladorMusica.getControladorMusica().actualizarNombre(user);
+						
+	            		} catch (SQLException e1) {
+							e1.printStackTrace();
 						}
-						else{
-							JOptionPane.showMessageDialog(null, "El usuario y la contraseña no coinciden. Pulsa aceptar e inténtalo de nuevo.");
-							setVisible(true);
-						}	
-					}
-					else{
-						JOptionPane.showMessageDialog(null, "Los sentimos. El usuario no se encuentra registrado en el sistema.");
-					}
+	            	}
+	            	if(!pass.isEmpty()){
+	            		try {
+		            		String sql= "Update Usuario set contrasena='"+pass+"' where id='"+id+"'";
+							SGBD.getSGBD().actualizar(sql);
+							ControladorMusica.getControladorMusica().actualizarContrasena(pass);
+						
+	            		} catch (SQLException e1) {
+							e1.printStackTrace();
+						}
+	            	}
+	            	if(!email.isEmpty()){
+	            		try {
+		            		String sql= "Update Usuario set email='"+email+"' where id='"+id+"'";
+							SGBD.getSGBD().actualizar(sql);
+							ControladorMusica.getControladorMusica().actualizarEmail(email);
+
+							
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						}
+	            	}
+					JOptionPane.showMessageDialog(null, "Ya hemos modificado tus datos personales.");
+					System.out.println(usuarioActual.getNombre()+"-"+usuarioActual.getContrasena()+"-"+usuarioActual.getEmail());
+					VModificarPerfil v= new VModificarPerfil();
+					v.setVisible(true);
+					dispose();
+
 	        }
 	    }});
 
@@ -138,7 +171,7 @@ public class VIdentificarse extends JFrame {
 		JButton cancelar = new JButton("Cancelar");
 		cancelar.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
-	        	VPrincipal v= new VPrincipal();
+	        	VMenu v= new VMenu();
 	        	v.setVisible(true);
 	        	dispose();
 	        
@@ -151,8 +184,9 @@ public class VIdentificarse extends JFrame {
 		fondo.setIcon(new ImageIcon(VEscucharCancion.class.getResource("/imagenes/ecualizador1.gif")));
 		fondo.setBounds(5, 45, 484, 308);
 		panelInsertar.add(fondo);
-		
+				
 		
 		return panelInsertar;
 	}	
 }
+
