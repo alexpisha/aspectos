@@ -3,6 +3,7 @@ package interfaces;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -21,6 +22,7 @@ import javax.swing.SwingConstants;
 
 import modelo.ControladorMusica;
 import modelo.SGBD;
+
 import javax.swing.JPasswordField;
 
 public class VIdentificarse extends JFrame {
@@ -52,6 +54,8 @@ public class VIdentificarse extends JFrame {
 	 * Create the frame.
 	 */
 	public VIdentificarse() {
+		Image iconPrincipal = new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage();
+		setIconImage(iconPrincipal);
 		setTitle("EUITI MUSIC PLAYER 3");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 500, 350);

@@ -5,6 +5,7 @@ public class Cancion {
 	private String titulo;
 	private String autor;
 	private String nombreRuta;
+	private String album;
 	
 	public Cancion(int pId, String pTitulo, String pAutor, String pNombreRuta) {
 		id = pId;
@@ -28,5 +29,8 @@ public class Cancion {
 	public String getTitulo() {
 		return titulo;
 	}
-
+	
+	public String getAlbum() {
+		return album;
+	}
 }

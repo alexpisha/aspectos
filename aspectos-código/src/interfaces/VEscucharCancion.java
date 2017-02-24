@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -21,6 +22,7 @@ import javax.swing.JList;
 import javax.swing.JTextPane;
 
 import modelo.Cancion;
+import modelo.ControladorMusica;
 import modelo.Reproductor;
 
 import java.awt.event.ActionListener;
@@ -29,7 +31,7 @@ import java.awt.event.ActionEvent;
 public class VEscucharCancion extends JFrame {
 
 	private JPanel contentPane;
-	private ArrayList<Cancion> laLista;
+	private static ArrayList<Cancion> laLista;
 	private boolean reproduciendo = true; 
 	private Reproductor rp = new Reproductor();
 	private int actual = 0;
@@ -60,11 +62,13 @@ public class VEscucharCancion extends JFrame {
 		initialize();
 	}
 	
-	public void setListaCanciones(ArrayList<Cancion> lista){
+	public static void setListaCanciones(ArrayList<Cancion> lista){
 		laLista = lista;
 	}
 	
 	private void initialize() throws Exception {
+		Image iconPrincipal = new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage();
+		setIconImage(iconPrincipal);
 		setTitle("EUITI MUSIC PLAYER 3");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 605, 429);
@@ -172,6 +176,14 @@ public class VEscucharCancion extends JFrame {
 		contentPane.add(btnSiguiente);
 		
 		JButton btnCompartir = new JButton("Compartir");
+		btnCompartir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Cancion c= laLista.get(actual);
+				String txt= "¡Estoy escuchando" + c.getTitulo() + "de" + c.getAutor() + "del album" +
+				c.getAlbum() +" en EUITI MUSIC PLAYER 3!";
+				ControladorMusica.getControladorMusica().compartirTwitter(txt);
+			}
+		});
 		btnCompartir.setBounds(459, 45, 120, 23);
 		contentPane.add(btnCompartir);
 		

@@ -45,6 +45,8 @@ public class VPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public VPrincipal() {
+		Image iconPrincipal = new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage();
+		setIconImage(iconPrincipal);
 		setTitle("EUITI MUSIC PLAYER 3");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 350);

@@ -61,6 +61,8 @@ public class VListasReproduccion extends JFrame  {
 
 	public VListasReproduccion()  {
 		setTitle("Listas de Reproduccion");
+		Image iconPrincipal = new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage();
+		setIconImage(iconPrincipal);
 		
 
 		// ----------------- SONIDO ------------------------
@@ -123,6 +125,7 @@ public class VListasReproduccion extends JFrame  {
 	private void cerrar() {
 		this.dispose();
 	}
+	
 	public void centrarFrame() {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Dimension frameSize = getSize(); // Tama�o del frame actual (ancho x

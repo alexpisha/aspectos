@@ -1,5 +1,14 @@
 package modelo;
 
+import java.awt.Desktop;
+import java.net.Socket;
+import java.net.URI;
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
+import com.mysql.fabric.xmlrpc.base.Array;
+
 public class ControladorMusica {
 	
 		private static ControladorMusica miControladorMusica = new ControladorMusica();
@@ -41,6 +50,40 @@ public class ControladorMusica {
 			usuario.resetearLista();
 		}
 
+		public void compartirTwitter(String pTxt){
+			if(comprobarConexion()){
+			 	try{
+			 		if(java.awt.Desktop.isDesktopSupported()){
+			 			Desktop dk = Desktop.getDesktop();
+		 				dk.browse(new URI("www.twitter.com/home?status="+pTxt));
+
+					}
+				 }catch(Exception e1){
+				 	JOptionPane.showMessageDialog(null,  "Error: "+e1);
+				}
+			}
+		}
+	
+		
+		public boolean comprobarConexion(){
+			String dirWeb = "www.twitter.com";
+			boolean conectado=false;
+			int puerto = 80;
+			try{
+				Socket s = new Socket(dirWeb, puerto);
+				if(s.isConnected()){
+					 conectado=!conectado;
+				}
+			}catch(Exception e){
+				JOptionPane.showMessageDialog(null, "Es necesario tener conexión a internet para compartir tus puntuaciones.");
+			}
+			return conectado;
+		}
+		
+		public ArrayList<Cancion> getTodasLasCanciones(){
+			return GestorCanciones.getGestorCanciones().getTodasLasCanciones();
+		}
+		
 	}
 
 
