@@ -63,7 +63,7 @@ public class VListasReproduccion extends JFrame  {
 		setTitle("Listas de Reproduccion");
 		Image iconPrincipal = new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage();
 		setIconImage(iconPrincipal);
-		
+		setResizable(false);
 
 		// ----------------- SONIDO ------------------------
 		Image icono = new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage();
@@ -89,11 +89,17 @@ public class VListasReproduccion extends JFrame  {
 		lblListasReproduccion.setHorizontalAlignment(SwingConstants.CENTER);
 		lblListasReproduccion.setBounds(108, 11, 318, 25);
 		contentPane.add(lblListasReproduccion);
-
-		JButton btnAceptar = new JButton("Gestionar Canciones");
-		btnAceptar.setBackground(new Color(212, 248, 227));
-		btnAceptar.setBorder(new MatteBorder(2, 2, 2, 2, new Color(32, 102, 60)));
-
+		ImageIcon icon= new ImageIcon(VPrincipal.class.getResource("/imagenes/botones.jpg"));
+		Image image = icon.getImage();
+		Image boton = image.getScaledInstance(190, 47,  java.awt.Image.SCALE_SMOOTH);
+		JButton btnAceptar = new JButton("Gestionar Canciones",new ImageIcon(boton));
+		
+		//btnAceptar.setBorder(new MatteBorder(2, 2, 2, 2, new Color(32, 102, 60)));
+		btnAceptar.setBackground(new Color(245, 216, 218));
+		btnAceptar.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnAceptar.setVerticalTextPosition(SwingConstants.CENTER);
+		btnAceptar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAceptar.setForeground(SystemColor.text);
 		btnAceptar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -102,22 +108,29 @@ public class VListasReproduccion extends JFrame  {
 			}
 		});
 
-		btnAceptar.setBounds(400, 400, 150, 45);
+		btnAceptar.setBounds(400, 400, 175, 45);
 		contentPane.add(btnAceptar);
-
-		JButton btnCancelar = new JButton("Atras");
-		btnCancelar.setBorder(new MatteBorder(2, 2, 2, 2, new Color(115, 35, 41)));
+		
+		JButton btnCancelar = new JButton("Atras",new ImageIcon(boton));
+		btnCancelar.setForeground(SystemColor.text);
+		//btnCancelar.setBorder(new MatteBorder(2, 2, 2, 2, new Color(115, 35, 41)));
 		btnCancelar.setBackground(new Color(245, 216, 218));
+		btnCancelar.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnCancelar.setVerticalTextPosition(SwingConstants.CENTER);
+		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		
 		btnCancelar.setBounds(30, 400, 100, 45);
 		contentPane.add(btnCancelar);
-		JButton btnBorrar = new JButton("Borrar lista");
-		btnBorrar.setBorder(new MatteBorder(2, 2, 2, 2, new Color(115, 35, 41)));
+		JButton btnBorrar = new JButton("Borrar lista",new ImageIcon(boton));
+		
+		btnBorrar.setForeground(SystemColor.text);
 		btnBorrar.setBackground(new Color(245, 216, 218));
+		btnBorrar.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnBorrar.setVerticalTextPosition(SwingConstants.CENTER);
+		btnBorrar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
-		
-		btnBorrar.setBounds(275, 400, 100, 45);
+		btnBorrar.setBounds(250, 400, 125, 45);
 		contentPane.add(btnBorrar);
 		centrarFrame();
 	}

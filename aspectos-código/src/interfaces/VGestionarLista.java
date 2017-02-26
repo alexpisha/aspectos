@@ -63,7 +63,7 @@ public class VGestionarLista extends JFrame  {
 		setTitle("Listas de Reproduccion");
 		Image iconPrincipal = new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage();
 		setIconImage(iconPrincipal);
-		
+		setResizable(false);
 
 		// ----------------- SONIDO ------------------------
 		Image icono = new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage();
