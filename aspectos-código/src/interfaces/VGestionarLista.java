@@ -33,7 +33,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
 
-public class VListasReproduccion extends JFrame  {
+public class VGestionarLista extends JFrame  {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -50,7 +50,7 @@ public class VListasReproduccion extends JFrame  {
 			@Override
 			public void run() {
 				try {
-					VListasReproduccion frame = new VListasReproduccion();
+					VGestionarLista frame = new VGestionarLista();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -59,7 +59,7 @@ public class VListasReproduccion extends JFrame  {
 		});
 	}
 
-	public VListasReproduccion()  {
+	public VGestionarLista()  {
 		setTitle("Listas de Reproduccion");
 		Image iconPrincipal = new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage();
 		setIconImage(iconPrincipal);
@@ -90,7 +90,7 @@ public class VListasReproduccion extends JFrame  {
 		lblListasReproduccion.setBounds(108, 11, 318, 25);
 		contentPane.add(lblListasReproduccion);
 
-		JButton btnAceptar = new JButton("Gestionar Canciones");
+		JButton btnAceptar = new JButton("Añadir Canciones");
 		btnAceptar.setBackground(new Color(212, 248, 227));
 		btnAceptar.setBorder(new MatteBorder(2, 2, 2, 2, new Color(32, 102, 60)));
 
@@ -112,7 +112,7 @@ public class VListasReproduccion extends JFrame  {
 		
 		btnCancelar.setBounds(30, 400, 100, 45);
 		contentPane.add(btnCancelar);
-		JButton btnBorrar = new JButton("Borrar lista");
+		JButton btnBorrar = new JButton("Borrar Cancion");
 		btnBorrar.setBorder(new MatteBorder(2, 2, 2, 2, new Color(115, 35, 41)));
 		btnBorrar.setBackground(new Color(245, 216, 218));
 		
