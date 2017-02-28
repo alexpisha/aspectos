@@ -84,13 +84,22 @@ public class VEscucharCancion extends JFrame {
 		lblEstasIdentificadoComo.setBounds(10, 11, 147, 14);
 		contentPane.add(lblEstasIdentificadoComo);
 		
-		JLabel lblIdUsuario = new JLabel("Pepito Garcia");
+		JLabel lblIdUsuario = new JLabel(ControladorMusica.getControladorMusica().getUsuario().getNombre());
 		lblIdUsuario.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblIdUsuario.setForeground(Color.WHITE);
 		lblIdUsuario.setBounds(158, 11, 147, 14);
 		contentPane.add(lblIdUsuario);
 		
 		JButton btnCerrarSesion = new JButton("Cerrar sesi\u00F3n");
+		btnCerrarSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ControladorMusica.getControladorMusica().resetearListasUsuario();
+				ControladorMusica.getControladorMusica().resetearDatosUsuario();
+				VPrincipal v = new VPrincipal();
+				v.setVisible(true);
+				dispose();
+			}
+		});
 		btnCerrarSesion.setBounds(459, 11, 120, 23);
 		contentPane.add(btnCerrarSesion);
 		
@@ -100,7 +109,7 @@ public class VEscucharCancion extends JFrame {
 		lblEstasEscuchando.setBounds(10, 290, 569, 23);
 		contentPane.add(lblEstasEscuchando);
 		
-		JLabel labelNombreCanción = new JLabel("...");
+		JLabel labelNombreCanción = new JLabel(laLista.get(actual).getAlbum());
 		labelNombreCanción.setForeground(Color.WHITE);
 		labelNombreCanción.setFont(new Font("Tahoma", Font.BOLD, 17));
 		labelNombreCanción.setBounds(10, 324, 569, 55);
