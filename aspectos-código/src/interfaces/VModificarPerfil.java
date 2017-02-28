@@ -132,7 +132,6 @@ public class VModificarPerfil extends JFrame {
 		            		String sql= "Update Usuario set nombre='"+user+"' where id='"+id+"'";
 							SGBD.getSGBD().actualizar(sql);
 							ControladorMusica.getControladorMusica().actualizarNombre(user);
-						
 	            		} catch (SQLException e1) {
 							e1.printStackTrace();
 						}
@@ -160,7 +159,7 @@ public class VModificarPerfil extends JFrame {
 	            	}
 					JOptionPane.showMessageDialog(null, "Ya hemos modificado tus datos personales.");
 					System.out.println(usuarioActual.getNombre()+"-"+usuarioActual.getContrasena()+"-"+usuarioActual.getEmail());
-					VModificarPerfil v= new VModificarPerfil();
+					VMenu v = new VMenu();
 					v.setVisible(true);
 					dispose();
 
