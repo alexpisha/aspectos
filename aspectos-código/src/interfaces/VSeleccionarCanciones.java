@@ -7,7 +7,6 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -19,15 +18,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-
-
 import modelo.Cancion;
 import modelo.ControladorMusica;
-import modelo.SGBD;
-
-import java.awt.FlowLayout;
+import modelo.Reproductor;
 import java.awt.GridLayout;
-import java.awt.ScrollPane;
 
 public class VSeleccionarCanciones extends JFrame {
 
@@ -92,6 +86,19 @@ public class VSeleccionarCanciones extends JFrame {
 		
 		
 		JButton ok= new JButton("OK");
+		ok.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String cancionABuscar = textField.getText();
+				String ruta = ControladorMusica.getControladorMusica().obtenerRuta(cancionABuscar);
+				Reproductor r = new Reproductor();
+				try {
+					r.AbrirFichero(ruta);
+					r.Play();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 		panelTitulo.add(ok, BorderLayout.EAST);
 		
 		JLabel lbl = new JLabel("            ");

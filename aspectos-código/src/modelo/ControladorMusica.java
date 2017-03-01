@@ -4,6 +4,7 @@ import java.awt.Desktop;
 import java.net.Socket;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JOptionPane;
 
@@ -82,6 +83,22 @@ public class ControladorMusica {
 		
 		public ArrayList<Cancion> getTodasLasCanciones(){
 			return GestorCanciones.getGestorCanciones().getTodasLasCanciones();
+		}
+
+		public String obtenerRuta(String cancionABuscar) {
+			ArrayList<Cancion> canciones = getTodasLasCanciones();
+			Iterator<Cancion> it = canciones.iterator();
+			Cancion c;
+			boolean yaEsta = false;
+			String ruta = "";
+			while (it.hasNext() && !yaEsta){
+				 c = it.next();
+				 if (cancionABuscar.equals(c.getTitulo()) || cancionABuscar.equals(c.getAutor())){
+					 ruta = c.getRuta();
+					 yaEsta=true;
+				 }
+			}
+			return ruta;
 		}
 		
 	}
