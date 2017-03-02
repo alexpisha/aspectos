@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.sql.Statement;
 
 
@@ -27,8 +28,7 @@ public class GestorCanciones {
 	}	
 		
 	public ArrayList<Cancion> getTodasLasCanciones(){
-		ArrayList<Cancion> todas = new ArrayList<Cancion>();
-		return todas;
+		return listaCanciones;
 	}
 	
 	public void cargarCanciones() throws IOException {
@@ -48,7 +48,7 @@ public class GestorCanciones {
 	    	ruta = rutaOriginal;
 	    	ruta = ruta.split("/")[2];
 	    	r = ruta.split("_");
-	    	c = new Cancion(i, r[1], r[0], rutaOriginal);
+	    	c = new Cancion(i, r[0], r[1], rutaOriginal);
 	    	System.out.println("titulo: " + c.getTitulo() + 
 	    			" autor: " + c.getAutor() + " id: " + c.getId()
 	    			+ " ruta: " + c.getRuta());
@@ -58,6 +58,40 @@ public class GestorCanciones {
 	    }
 	    br.close();
 	    fr.close();
+	}
+
+	public Cancion buscarCancionPorTitulo(String titulo) {
+		Iterator<Cancion> it = listaCanciones.iterator();
+		Cancion c = new Cancion(0, "", "", "");
+		boolean encontrada = false;
+		while(it.hasNext() && !encontrada){
+			c = it.next();
+			if (c.getTitulo().equals(titulo)){
+				encontrada = true;
+			}
+		}
+		if(!encontrada){
+			return null;
+		} else {
+			return c;
+		}
+	}
+
+	public Cancion buscarCancionPorAutores(String autores) {
+		Iterator<Cancion> it = listaCanciones.iterator();
+		Cancion c = new Cancion(0, "", "", "");
+		boolean encontrada = false;
+		while(it.hasNext() && !encontrada){
+			c = it.next();
+			if (c.getAutor().equals(autores)){
+				encontrada = true;
+			}
+		}
+		if(!encontrada){
+			return null;
+		} else {
+			return c;
+		}
 	}	
 	
 }

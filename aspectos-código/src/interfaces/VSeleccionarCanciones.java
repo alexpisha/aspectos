@@ -90,13 +90,6 @@ public class VSeleccionarCanciones extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				String cancionABuscar = textField.getText();
 				String ruta = ControladorMusica.getControladorMusica().obtenerRuta(cancionABuscar);
-				Reproductor r = new Reproductor();
-				try {
-					r.AbrirFichero(ruta);
-					r.Play();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
 			}
 		});
 		panelTitulo.add(ok, BorderLayout.EAST);

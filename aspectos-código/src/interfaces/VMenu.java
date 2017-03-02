@@ -71,7 +71,7 @@ public class VMenu extends JFrame {
 		btnReproducir.setForeground(SystemColor.text);
 		btnReproducir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-	        	VSeleccionarCanciones v= new VSeleccionarCanciones();
+	        	VElegirCanciones v= new VElegirCanciones();
 	        	v.setVisible(true);
 	        	dispose();
 			}
