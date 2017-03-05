@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import packCodigo.Partida;
+
 public class SGBD {
 	Connection connection;
 	private Statement sentencia;
@@ -172,7 +174,50 @@ public class SGBD {
 		// Si el contador es igual a 0 no hay jugadores en la BD
 		return (contador > 0);
 	}
+	public boolean existenListasReprod(String pUsuario) {
+		int contador = 0;
+		try {
+			rs = sentencia.executeQuery("Select count(*) from ListaReproduccion where idUsuario='" + pUsuario + "';");
+			rs.next();
+			contador = rs.getInt("COUNT(*)");
+		} catch (SQLException e) {
 
-	
+			e.printStackTrace();
+		}
+		// Si el contador es igual a 0 el jugador no tiene partidas guardadas
+		return (contador > 0);
+	}
+	public ArrayList<ListaReproduccion> getListasReprod(String pUsuario) {
+		ArrayList<ListaReproduccion> aDevolver = new ArrayList<ListaReproduccion>();
+		if (this.existenListasReprod(pUsuario)) {
+			try {
+				String sentenciaSQL = "SELECT * FROM listaReproduccion WHERE idUsuario='" + pUsuario + "';";
+				rs = sentencia.executeQuery(sentenciaSQL);
+				while (rs.next()) {
+					ListaReproduccion lista = new ListaReproduccion(this.rs.getInt(1), this.rs.getInt(2), this.rs.getString(3));
+					aDevolver.add(lista);
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+
+			}
+		}
+		return aDevolver;
+	}
+	public Cancion obtenerCancion(String id) {
+	Cancion cancion;
+		try {
+			rs = sentencia.executeQuery("Select * from cancion where id='" + id + "';");
+			while (rs.next()) {
+				 cancion = new Cancion(this.rs.getInt(1), this.rs.getString(2), this.rs.getString(3),this.rs.getString(4),this.rs.getString(5));
+			}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		return cancion;
+	}
 
 }

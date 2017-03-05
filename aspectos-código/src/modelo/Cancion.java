@@ -7,11 +7,16 @@ public class Cancion {
 	private String nombreRuta;
 	private String album;
 	
-	public Cancion(int pId, String pTitulo, String pAutor, String pNombreRuta) {
+	public Cancion(int pId, String pTitulo, String pAutor, String pNombreRuta,String album) {
 		id = pId;
 		titulo = pTitulo;
 		autor = pAutor;
 		nombreRuta = pNombreRuta;
+		album=album;
+	}
+	
+	public void setAlbum(String album) {
+		this.album = album;
 	}
 	
 	public String getRuta() {

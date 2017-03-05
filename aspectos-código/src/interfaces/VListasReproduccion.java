@@ -118,7 +118,14 @@ public class VListasReproduccion extends JFrame  {
 		btnCancelar.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnCancelar.setVerticalTextPosition(SwingConstants.CENTER);
 		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 14));
-		
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VMenu v = new VMenu();
+				dispose();
+				v.setVisible(true);
+				
+			}
+		});
 		
 		btnCancelar.setBounds(30, 400, 100, 45);
 		contentPane.add(btnCancelar);
