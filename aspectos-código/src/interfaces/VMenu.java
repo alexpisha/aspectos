@@ -99,6 +99,10 @@ public class VMenu extends JFrame {
 		botonGestionar.setForeground(SystemColor.text);
 		botonGestionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				VListasReproduccion v= new VListasReproduccion();
+	        	v.setVisible(true);
+	        	dispose();
+				
 			}
 		});
 		
