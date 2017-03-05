@@ -33,10 +33,10 @@ public class GestorCanciones {
 	
 	public void cargarCanciones() throws IOException {
 		//Así deberia de ser pero me da problemas :(
-		//FileReader fr = new FileReader("/canciones/ListadoCanciones.txt");
+		FileReader fr = new FileReader("ListadoCanciones.txt");
 		
 		//Y asi no me da problemas :(
-		FileReader fr = new FileReader("C:/Users/alex/Desktop/ListadoCanciones.txt");
+		//FileReader fr = new FileReader("C:/Users/alex/Desktop/ListadoCanciones.txt");
 		
 		
 		BufferedReader br = new BufferedReader(fr);
