@@ -62,7 +62,7 @@ public class VEscucharCancion extends JFrame {
 		initialize();
 	}
 	
-	public void setListaCanciones(ArrayList<Cancion> lista){
+	public static void setListaCanciones(ArrayList<Cancion> lista){
 		laLista = lista;
 	}
 	

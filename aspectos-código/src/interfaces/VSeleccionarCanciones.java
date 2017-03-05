@@ -80,7 +80,7 @@ public class VSeleccionarCanciones extends JFrame {
 		lblBienvenida.setFont(new Font("Arial", Font.BOLD, 26));
 		panelTitulo.add(lblBienvenida, BorderLayout.NORTH);
 		
-		textField = new JTextField("Busca una cancion por título, álbum o autor.");
+	/*	textField = new JTextField("Busca una cancion por título, álbum o autor.");
 		textField.setColumns(5);
 		panelTitulo.add(textField, BorderLayout.CENTER);
 		
@@ -97,7 +97,7 @@ public class VSeleccionarCanciones extends JFrame {
 		JLabel lbl = new JLabel("            ");
 		lblBienvenida.setFont(new Font("Arial", Font.BOLD, 26));
 		panelTitulo.add(lbl, BorderLayout.SOUTH);
-		
+		*/
 		
 		return panelTitulo;
 	}
@@ -124,7 +124,7 @@ public class VSeleccionarCanciones extends JFrame {
 		panelBotones.add(btnAceptar);
 				
 		
-		JButton cancelar = new JButton("Cancelar");
+		JButton cancelar = new JButton("Volver");
 		cancelar.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
 	        	VMenu v= new VMenu();

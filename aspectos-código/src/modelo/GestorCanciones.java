@@ -38,6 +38,7 @@ public class GestorCanciones {
 		//Y asi no me da problemas :(
 		FileReader fr = new FileReader("C:/Users/alex/Desktop/ListadoCanciones.txt");
 		
+		
 		BufferedReader br = new BufferedReader(fr);
 		String rutaOriginal = br.readLine();
 		String ruta;
@@ -60,6 +61,7 @@ public class GestorCanciones {
 	    fr.close();
 	}
 
+
 	public Cancion buscarCancionPorTitulo(String titulo) {
 		Iterator<Cancion> it = listaCanciones.iterator();
 		Cancion c = new Cancion(0, "", "", "");
@@ -77,21 +79,17 @@ public class GestorCanciones {
 		}
 	}
 
-	public Cancion buscarCancionPorAutores(String autores) {
+	public ArrayList<Cancion> buscarCancionesPorAutores(String autores) {
 		Iterator<Cancion> it = listaCanciones.iterator();
 		Cancion c = new Cancion(0, "", "", "");
-		boolean encontrada = false;
-		while(it.hasNext() && !encontrada){
+		ArrayList<Cancion> lista = new ArrayList<Cancion>();
+		while(it.hasNext()){
 			c = it.next();
 			if (c.getAutor().equals(autores)){
-				encontrada = true;
+				lista.add(c);
 			}
 		}
-		if(!encontrada){
-			return null;
-		} else {
-			return c;
-		}
+		return lista;
 	}	
 	
 }
