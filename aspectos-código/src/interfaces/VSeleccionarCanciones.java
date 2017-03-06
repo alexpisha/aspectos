@@ -127,7 +127,7 @@ public class VSeleccionarCanciones extends JFrame {
 		JButton cancelar = new JButton("Volver");
 		cancelar.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
-	        	VMenu v= new VMenu();
+	        	VElegirCanciones v= new VElegirCanciones();
 	        	v.setVisible(true);
 	        	dispose();
 	        }});

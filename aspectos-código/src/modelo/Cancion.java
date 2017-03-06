@@ -7,7 +7,7 @@ public class Cancion {
 	private String nombreRuta;
 	private String album;
 	
-	public Cancion(int pId, String pTitulo, String pAutor, String pNombreRuta,String album) {
+	public Cancion(int pId, String pTitulo, String pAutor, String pNombreRuta,String album){
 		this.id = pId;
 		this.titulo = pTitulo;
 		this.autor = pAutor;

@@ -32,13 +32,7 @@ public class GestorCanciones {
 	}
 	
 	public void cargarCanciones() throws IOException {
-		//Así deberia de ser pero me da problemas :(
-		FileReader fr = new FileReader("ListadoCanciones.txt");
-		
-		//Y asi no me da problemas :(
-		//FileReader fr = new FileReader("C:/Users/alex/Desktop/ListadoCanciones.txt");
-		
-		
+		FileReader fr = new FileReader("ListadoCanciones.txt");		
 		BufferedReader br = new BufferedReader(fr);
 		String rutaOriginal = br.readLine();
 		String ruta;
@@ -49,10 +43,10 @@ public class GestorCanciones {
 	    	ruta = rutaOriginal;
 	    	ruta = ruta.split("/")[2];
 	    	r = ruta.split("_");
-	    	c = new Cancion(i, r[0], r[1], rutaOriginal);
+	    	c = new Cancion(i, r[0], r[1], rutaOriginal,r[2]);
 	    	System.out.println("titulo: " + c.getTitulo() + 
 	    			" autor: " + c.getAutor() + " id: " + c.getId()
-	    			+ " ruta: " + c.getRuta());
+	    			+ " ruta: " + c.getRuta() + " album: " + c.getAlbum());
 	    	listaCanciones.add(c);
 	    	rutaOriginal = br.readLine();
 	    	
@@ -64,7 +58,7 @@ public class GestorCanciones {
 
 	public Cancion buscarCancionPorTitulo(String titulo) {
 		Iterator<Cancion> it = listaCanciones.iterator();
-		Cancion c = new Cancion(0, "", "", "");
+		Cancion c = new Cancion(0, "", "", "","");
 		boolean encontrada = false;
 		while(it.hasNext() && !encontrada){
 			c = it.next();
@@ -81,7 +75,7 @@ public class GestorCanciones {
 
 	public ArrayList<Cancion> buscarCancionesPorAutores(String autores) {
 		Iterator<Cancion> it = listaCanciones.iterator();
-		Cancion c = new Cancion(0, "", "", "");
+		Cancion c = new Cancion(0, "", "", "","");
 		ArrayList<Cancion> lista = new ArrayList<Cancion>();
 		while(it.hasNext()){
 			c = it.next();

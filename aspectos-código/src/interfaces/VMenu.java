@@ -47,12 +47,6 @@ public class VMenu extends JFrame {
 	 * Create the frame.
 	 */
 	public VMenu() {
-		try {
-			GestorCanciones.getGestorCanciones().cargarCanciones();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		Image iconPrincipal = new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage();
 		setIconImage(iconPrincipal);
 		setTitle("EUITI MUSIC PLAYER 3");

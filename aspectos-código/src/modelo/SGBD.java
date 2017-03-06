@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import packCodigo.Partida;
+//import packCodigo.Partida;
 
 public class SGBD {
 	Connection connection;
@@ -206,7 +206,7 @@ public class SGBD {
 		return aDevolver;
 	}
 	public Cancion obtenerCancion(String id) {
-	Cancion cancion;
+	Cancion cancion = new Cancion(0,"","","","");
 		try {
 			rs = sentencia.executeQuery("Select * from cancion where id='" + id + "';");
 			while (rs.next()) {
