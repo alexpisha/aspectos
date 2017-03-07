@@ -103,7 +103,9 @@ public class VListasReproduccion extends JFrame  {
 		btnAceptar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+				VGestionarLista v = new VGestionarLista();
+				dispose();
+				v.setVisible(true);
 
 			}
 		});
