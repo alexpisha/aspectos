@@ -127,12 +127,14 @@ public class VRegistrarse extends JFrame {
 	        public void actionPerformed(ActionEvent e) {
 	            String user=textUser.getText();
 	            String pass= textPass.getText();
+	            String pass2= textPass.getText();
+	     
 	            String email= textEmail.getText();
 	            if(user.isEmpty() || email.isEmpty() ||pass.isEmpty()){
 					JOptionPane.showMessageDialog(null, "Es necesario rellenar todos los campos. Pulsa aceptar e inténtalo de nuevo.");
 	            }else{
 					if(!SGBD.getSGBD().existeUsuario(user)){
-						if(textPass.equals(textPass2)){
+						if(pass.equals(pass2)){
 							SGBD.getSGBD().ingresarJugador(user,  pass, email);
 							ControladorMusica.getControladorMusica().establecerDatosUsuario(user, pass, email);
 							VMenu menu = new VMenu();
