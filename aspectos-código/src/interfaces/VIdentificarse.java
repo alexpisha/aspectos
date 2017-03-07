@@ -135,7 +135,7 @@ public class VIdentificarse extends JFrame {
 	        }
 	    }});
 
-		btnAceptar.setBounds(138, 211, 97, 25);
+		btnAceptar.setBounds(245, 209, 97, 25);
 		panelInsertar.add(btnAceptar);
 				
 		
@@ -147,7 +147,7 @@ public class VIdentificarse extends JFrame {
 	        	dispose();
 	        
 	    }});
-		cancelar.setBounds(274, 211, 97, 25);
+		cancelar.setBounds(138, 209, 97, 25);
 		panelInsertar.add(cancelar);
 		
 		

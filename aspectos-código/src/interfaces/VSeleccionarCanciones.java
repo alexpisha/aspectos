@@ -35,6 +35,7 @@ public class VSeleccionarCanciones extends JFrame {
 	private ArrayList<Cancion> listaSeleccionadas;
 	private JTextArea textArea;
 	private JTextField textField;
+	private JCheckBox chckbxReproducirTodas;
 
 
 	/**
@@ -122,10 +123,20 @@ public class VSeleccionarCanciones extends JFrame {
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
-	        	if(listaCheck != null ){
+	    	    if(chckbxReproducirTodas.isSelected()){
+	            	VEscucharCancion.setListaCanciones(listaEntera);
+	            	VEscucharCancion v;
+	    			try {
+	    				v = new VEscucharCancion();
+	    				v.setVisible(true);
+	    			} catch (Exception e1) {
+	    				e1.printStackTrace();
+	    			}
+	            	dispose();
+	    	    }
+	    	    else if(listaCheck != null ){
 		        	getYSetSeleccionados();
 		        	VEscucharCancion.setListaCanciones(listaSeleccionadas);
-		        	System.out.println(listaSeleccionadas);
 		        	VEscucharCancion v;
 					try {
 						v = new VEscucharCancion();
@@ -142,6 +153,8 @@ public class VSeleccionarCanciones extends JFrame {
 		
 				btnAceptar.setBounds(138, 211, 97, 25);
 				panelBotones.add(btnAceptar);
+				
+				
 		return panelBotones;
 	}
 	
@@ -157,6 +170,8 @@ public class VSeleccionarCanciones extends JFrame {
 			panelInsertar.add(checkbox);
 		}
 	    JScrollPane scroll = new JScrollPane(panelInsertar);
+	    chckbxReproducirTodas = new JCheckBox("Reproducir todas");
+		panelInsertar.add(chckbxReproducirTodas);
 		return scroll;
 	}	
 	

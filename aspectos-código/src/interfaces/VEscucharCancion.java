@@ -116,7 +116,7 @@ public class VEscucharCancion extends JFrame {
 		contentPane.add(lblEstasEscuchando);
 		
 		Cancion c= laLista.get(actual);
-		JLabel labelNombreCanción = new JLabel(c.getTitulo()+" del autor "+ c.getAutor() + "y del album " + c.getAlbum());
+		JLabel labelNombreCanción = new JLabel(c.getTitulo()+" del autor "+ c.getAutor() + "y del genero " + c.getAlbum());
 		labelNombreCanción.setForeground(Color.WHITE);
 		labelNombreCanción.setFont(new Font("Tahoma", Font.BOLD, 17));
 		labelNombreCanción.setBounds(10, 324, 569, 55);
@@ -127,7 +127,7 @@ public class VEscucharCancion extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if(reproduciendo){
 					try {
-						rp.stop();
+						rp.pausa();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}	
@@ -147,8 +147,14 @@ public class VEscucharCancion extends JFrame {
 		JButton btnAnterior = new JButton("Anterior");
 		btnAnterior.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				labelNombreCanción.setText(laLista.get(actual).getTitulo()+" del autor "+ laLista.get(actual).getAutor() + "y del genero " + laLista.get(actual).getAlbum());
+				actual--;
+				if(actual<0){
+					actual = laLista.size()-1;
+				}
 				try {
-					rp.abrirFichero(laLista.get(actual).getRuta());
+					rp.stop();
+					reproducir();
 					rp.play();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -170,8 +176,14 @@ public class VEscucharCancion extends JFrame {
 		JButton btnSiguiente = new JButton("Siguiente");
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				labelNombreCanción.setText(laLista.get(actual).getTitulo()+" del autor "+ laLista.get(actual).getAutor() + "y del genero " + laLista.get(actual).getAlbum());
+				actual++;
+				if(actual>laLista.size()-1){
+					actual = 0;
+				}
 				try {
-					rp.abrirFichero(laLista.get(actual).getRuta());
+					rp.stop();
+					reproducir();
 					rp.play();
 				} catch (Exception e1) {
 					e1.printStackTrace();

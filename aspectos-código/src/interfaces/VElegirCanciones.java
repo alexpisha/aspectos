@@ -75,7 +75,7 @@ public class VElegirCanciones extends JFrame {
 		textField.setColumns(10);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Titulo", "Autor", "Album"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Titulo", "Autor", "Genero"}));
 		comboBox.setBounds(10, 52, 83, 20);
 		contentPane.add(comboBox);
 		
@@ -92,7 +92,7 @@ public class VElegirCanciones extends JFrame {
 						if(c!=null){
 							lista.add(c);
 						}
-					}if(seleccion.equals("Album")){
+					}if(seleccion.equals("Genero")){
 						lista = GestorCanciones.getGestorCanciones().buscarCancionesPorAlbum(textField.getText());
 					}
 					else {
