@@ -40,8 +40,6 @@ public class VListasReproduccion extends JFrame  {
 	private JRadioButton[] buttons;
 	private ButtonGroup grupo;
 	private JPanel panelRadioButtons;
-	private int partidaSeleccionada;
-	private String partidaSelec;
 	private Image fondo;
 	
 
@@ -123,7 +121,7 @@ public class VListasReproduccion extends JFrame  {
 		btnCrear.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				VGestionarLista v = new VGestionarLista();
+				VCrearLista v = new VCrearLista();
 				dispose();
 				v.setVisible(true);
 

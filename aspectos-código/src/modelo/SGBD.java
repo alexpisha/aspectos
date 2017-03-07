@@ -187,6 +187,19 @@ public class SGBD {
 		// Si el contador es igual a 0 el jugador no tiene partidas guardadas
 		return (contador > 0);
 	}
+	public boolean existeLista(String pUsuario, String pNombreLista) {
+		int contador = 0;
+		try {
+			rs = sentencia.executeQuery("Select count(*) from ListaReproduccion where idUsuario='" + pUsuario +"' AND tituloLista='"+pNombreLista +"';");
+			rs.next();
+			contador = rs.getInt("COUNT(*)");
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		// Si el contador es igual a 0 el jugador no tiene partidas guardadas
+		return (contador > 0);
+	}
 	public ArrayList<ListaReproduccion> getListasReprod(String pUsuario) {
 		ArrayList<ListaReproduccion> aDevolver = new ArrayList<ListaReproduccion>();
 		if (this.existenListasReprod(pUsuario)) {
@@ -226,18 +239,31 @@ public class SGBD {
 	 * @param pContrasena
 	 * @return
 	 */
-	public int insertarListaRepr(String pNombreLista, int pIdUsuario, String pListaCanciones) {
-		int estado = 0;
+	public int insertarListaRepr(String pNombreLista, String pUsuario) {
+		int id = 0;
+		
+			try {
+				String sentenciaSQL = "SELECT id FROM Usuario WHERE nombre='" + pUsuario + "';";
+				rs = sentencia.executeQuery(sentenciaSQL);
+				while (rs.next()) {
+					id=this.rs.getInt(1);
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+
+			}
+		
 		try {
 			PreparedStatement statement = connection.prepareStatement(
-					"insert into ListaReproduccion(tituloLista,idUsuario,listaIdCanciones) values('" + pNombreLista + "','" + pIdUsuario + "','" +pListaCanciones+"');");
+					"insert into ListaReproduccion(tituloLista,idUsuario) values('" + pNombreLista + "','" + id +"');");
 			statement.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
-			estado = -1;
+		
 		}
 		// Devuelvo un numero para saber si ha sido correcto o no el ingreso
-		return estado;
+		return id;
 	}
 	public void modificarListaRepr(String pNombreLista, int pIdUsuario, String pListaCanciones, int idLista) {
 		try {
