@@ -194,7 +194,7 @@ public class SGBD {
 				String sentenciaSQL = "SELECT * FROM listaReproduccion WHERE idUsuario='" + pUsuario + "';";
 				rs = sentencia.executeQuery(sentenciaSQL);
 				while (rs.next()) {
-					ListaReproduccion lista = new ListaReproduccion(this.rs.getInt(1), this.rs.getInt(2), this.rs.getString(3));
+					ListaReproduccion lista = new ListaReproduccion(this.rs.getInt(1), this.rs.getInt(2), this.rs.getString(3),this.rs.getString(4));
 					aDevolver.add(lista);
 				}
 
@@ -219,5 +219,24 @@ public class SGBD {
 		}
 		return cancion;
 	}
-
+	/**
+	 * anade un usuario a la base de datos
+	 * 
+	 * @param pUsuario
+	 * @param pContrasena
+	 * @return
+	 */
+	public int insertarListaRepr(String pNombreLista, int pIdUsuario, String pListaCanciones) {
+		int estado = 0;
+		try {
+			PreparedStatement statement = connection.prepareStatement(
+					"insert into listaReproduccion(titulo,idUsuario,listaCanciones) values('" + pNombreLista + "','" + pIdUsuario + "','" +pListaCanciones+"');");
+			statement.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			estado = -1;
+		}
+		// Devuelvo un numero para saber si ha sido correcto o no el ingreso
+		return estado;
+	}
 }

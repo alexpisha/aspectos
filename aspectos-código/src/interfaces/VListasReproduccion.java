@@ -92,15 +92,15 @@ public class VListasReproduccion extends JFrame  {
 		ImageIcon icon= new ImageIcon(VPrincipal.class.getResource("/imagenes/botones.jpg"));
 		Image image = icon.getImage();
 		Image boton = image.getScaledInstance(190, 47,  java.awt.Image.SCALE_SMOOTH);
-		JButton btnAceptar = new JButton("Gestionar Canciones",new ImageIcon(boton));
+		JButton btnGestionar = new JButton("Gestionar Canciones",new ImageIcon(boton));
 		
 		//btnAceptar.setBorder(new MatteBorder(2, 2, 2, 2, new Color(32, 102, 60)));
-		btnAceptar.setBackground(new Color(245, 216, 218));
-		btnAceptar.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnAceptar.setVerticalTextPosition(SwingConstants.CENTER);
-		btnAceptar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAceptar.setForeground(SystemColor.text);
-		btnAceptar.addActionListener(new ActionListener() {
+		btnGestionar.setBackground(new Color(245, 216, 218));
+		btnGestionar.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnGestionar.setVerticalTextPosition(SwingConstants.CENTER);
+		btnGestionar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnGestionar.setForeground(SystemColor.text);
+		btnGestionar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				VGestionarLista v = new VGestionarLista();
@@ -110,8 +110,27 @@ public class VListasReproduccion extends JFrame  {
 			}
 		});
 
-		btnAceptar.setBounds(400, 400, 175, 45);
-		contentPane.add(btnAceptar);
+		btnGestionar.setBounds(400, 400, 175, 45);
+		contentPane.add(btnGestionar);
+		JButton btnCrear = new JButton("Crear lista",new ImageIcon(boton));
+		
+		//btnAceptar.setBorder(new MatteBorder(2, 2, 2, 2, new Color(32, 102, 60)));
+		btnCrear.setBackground(new Color(245, 216, 218));
+		btnCrear.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnCrear.setVerticalTextPosition(SwingConstants.CENTER);
+		btnCrear.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCrear.setForeground(SystemColor.text);
+		btnCrear.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				VGestionarLista v = new VGestionarLista();
+				dispose();
+				v.setVisible(true);
+
+			}
+		});
+		btnCrear.setBounds(135, 400, 100, 45);
+		contentPane.add(btnCrear);
 		
 		JButton btnCancelar = new JButton("Atras",new ImageIcon(boton));
 		btnCancelar.setForeground(SystemColor.text);
@@ -139,7 +158,7 @@ public class VListasReproduccion extends JFrame  {
 		btnBorrar.setVerticalTextPosition(SwingConstants.CENTER);
 		btnBorrar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
-		btnBorrar.setBounds(250, 400, 125, 45);
+		btnBorrar.setBounds(240, 400, 125, 45);
 		contentPane.add(btnBorrar);
 		centrarFrame();
 	}

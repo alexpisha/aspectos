@@ -102,8 +102,9 @@ public class VGestionarLista extends JFrame  {
 		btnAceptar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
-
+				VElegirCanciones v = new VElegirCanciones();
+				dispose();
+				v.setVisible(true);
 			}
 		});
 
