@@ -201,10 +201,25 @@ public class SGBD {
 		return (contador > 0);
 	}
 	public ArrayList<ListaReproduccion> getListasReprod(String pUsuario) {
+		
+		int id = 0;
+		
+		try {
+			String sentenciaSQL = "SELECT id FROM Usuario WHERE nombre='" + pUsuario + "';";
+			rs = sentencia.executeQuery(sentenciaSQL);
+			while (rs.next()) {
+				id=this.rs.getInt(1);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		
 		ArrayList<ListaReproduccion> aDevolver = new ArrayList<ListaReproduccion>();
-		if (this.existenListasReprod(pUsuario)) {
+		
 			try {
-				String sentenciaSQL = "SELECT * FROM listaReproduccion WHERE idUsuario='" + pUsuario + "';";
+				String sentenciaSQL = "SELECT * FROM ListaReproduccion WHERE idUsuario=" + id + ";";
 				rs = sentencia.executeQuery(sentenciaSQL);
 				while (rs.next()) {
 					ListaReproduccion lista = new ListaReproduccion(this.rs.getInt(1), this.rs.getInt(2), this.rs.getString(3),this.rs.getString(4));
@@ -214,8 +229,9 @@ public class SGBD {
 			} catch (Exception e) {
 				e.printStackTrace();
 
-			}
+			
 		}
+		
 		return aDevolver;
 	}
 	public Cancion obtenerCancion(String id) {
@@ -256,7 +272,7 @@ public class SGBD {
 		
 		try {
 			PreparedStatement statement = connection.prepareStatement(
-					"insert into ListaReproduccion(tituloLista,idUsuario) values('" + pNombreLista + "','" + id +"');");
+					"insert into ListaReproduccion(tituloLista,idUsuario, listaIdCanciones) values('" + pNombreLista + "','" + id +"' "+ "''"+");");
 			statement.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.ArrayList;
+
 public class GestorListasReproduccion {
 	private static GestorListasReproduccion miGestorListasReproduccion;
 	private GestorListasReproduccion() {
@@ -20,5 +22,6 @@ public class GestorListasReproduccion {
 	public int insertarListaRepr(String pNombreLista, String pIdUsuario) {
 	 return (SGBD.getSGBD().insertarListaRepr(pNombreLista, pIdUsuario));
 	}
-	
+	public ArrayList<ListaReproduccion> getListasReprod(String pUsuario) {
+		return (SGBD.getSGBD().getListasReprod(pUsuario));}
 }

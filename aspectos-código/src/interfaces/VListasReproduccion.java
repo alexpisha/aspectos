@@ -32,6 +32,11 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
+import modelo.ControladorMusica;
+import modelo.GestorListasReproduccion;
+import modelo.ListaReproduccion;
+
+
 
 public class VListasReproduccion extends JFrame  {
 
@@ -159,10 +164,57 @@ public class VListasReproduccion extends JFrame  {
 		btnBorrar.setBounds(240, 400, 125, 45);
 		contentPane.add(btnBorrar);
 		centrarFrame();
+		addListas();
 	}
 
 	
+	private void addListas() {
+		String usuario=ControladorMusica.getControladorMusica().getUsuario().getNombre();
+		ArrayList<ListaReproduccion> lista = GestorListasReproduccion.getGestorListasReproduccion().getListasReprod(usuario);
+		buttons = new JRadioButton[lista.size()];
+		grupo = new ButtonGroup();
+		JScrollPane scrollPane = new JScrollPane() {
+			private static final long serialVersionUID = 1L;
 
+			@Override
+			public void paintComponent(Graphics g) {
+				g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
+			}
+		};
+		scrollPane.setEnabled(false);
+		panelRadioButtons = new JPanel() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void paintComponent(Graphics g) {
+				g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
+			}
+		};
+		panelRadioButtons.setBorder(new MatteBorder(1, 1, 1, 1, new Color(0, 0, 139)));
+		panelRadioButtons.setBackground(SystemColor.menu);
+		panelRadioButtons.setBounds(10, 47, 491, 203);
+
+		int i = 0;
+		
+		for (ListaReproduccion unalista : lista) {
+			String nombre=unalista.getNombreLista();
+			
+			JRadioButton btn = new JRadioButton(
+					"-->: " + nombre);
+
+			//btn.addActionListener(this);
+			btn.setName("" + i);
+			grupo.add(btn);
+			panelRadioButtons.add(btn);
+			buttons[i] = btn;
+			i++;
+		}
+		scrollPane.setBounds(10, 47, 491, 203);
+		contentPane.add(scrollPane);
+
+		scrollPane.setViewportView(panelRadioButtons);
+		panelRadioButtons.setLayout(new GridLayout(lista.size(), 1));
+	}
 
 
 	

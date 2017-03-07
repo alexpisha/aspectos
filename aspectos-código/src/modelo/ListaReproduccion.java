@@ -12,11 +12,13 @@ public class ListaReproduccion {
 		this.id=id;
 		this.idUsuario=idUsuario;
 		this.nombreLista=nombreLista;
+		if(listaIdCanciones!=null){
 		String[] canciones =listaIdCanciones.split(",");
 		for(int i=0; i<canciones.length; i++){
 			Cancion c = SGBD.getSGBD().obtenerCancion(canciones[i].toString());
 			this.listaCanciones.add(c);
 			
+		}
 		}
 	}
 	
@@ -31,4 +33,12 @@ public class ListaReproduccion {
 	public int getIdUsuario() {
 		return idUsuario;
 	}
+	public String getNombreLista() {
+		return nombreLista;
+	}
+
+	public void setNombreLista(String nombreLista) {
+		this.nombreLista = nombreLista;
+	}
+	
 }
