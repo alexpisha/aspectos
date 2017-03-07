@@ -230,7 +230,7 @@ public class SGBD {
 		int estado = 0;
 		try {
 			PreparedStatement statement = connection.prepareStatement(
-					"insert into listaReproduccion(titulo,idUsuario,listaCanciones) values('" + pNombreLista + "','" + pIdUsuario + "','" +pListaCanciones+"');");
+					"insert into ListaReproduccion(tituloLista,idUsuario,listaIdCanciones) values('" + pNombreLista + "','" + pIdUsuario + "','" +pListaCanciones+"');");
 			statement.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -238,5 +238,14 @@ public class SGBD {
 		}
 		// Devuelvo un numero para saber si ha sido correcto o no el ingreso
 		return estado;
+	}
+	public void modificarListaRepr(String pNombreLista, int pIdUsuario, String pListaCanciones, int idLista) {
+		try {
+			PreparedStatement statement = connection.prepareStatement(
+					"Update ListaReproduccion set listaIdCanciones='" + pListaCanciones + "' where idUsuario='" + pIdUsuario +" AND tituloLista = "+pNombreLista+ "';");
+			statement.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
