@@ -144,14 +144,16 @@ public class VEscucharCancion extends JFrame {
 		btnPlayPause.setBounds(229, 256, 131, 23);
 		contentPane.add(btnPlayPause);
 		
+		
 		JButton btnAnterior = new JButton("Anterior");
 		btnAnterior.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				labelNombreCanción.setText(laLista.get(actual).getTitulo()+" del autor "+ laLista.get(actual).getAutor() + "y del genero " + laLista.get(actual).getAlbum());
-				actual--;
+				actual--;			
 				if(actual<0){
 					actual = laLista.size()-1;
 				}
+				labelNombreCanción.setText(laLista.get(actual).getTitulo()+" del autor "+ laLista.get(actual).getAutor() + "y del genero " + laLista.get(actual).getAlbum());
+				
 				try {
 					rp.stop();
 					reproducir();
@@ -166,6 +168,7 @@ public class VEscucharCancion extends JFrame {
 			actual = laLista.size()-1;
 		}
 		btnAnterior.setBounds(130, 256, 89, 23);
+		
 		if(laLista.size()==1){
 			btnAnterior.setEnabled(false);
 		}else{
@@ -173,14 +176,16 @@ public class VEscucharCancion extends JFrame {
 		}
 		contentPane.add(btnAnterior);
 		
+		
 		JButton btnSiguiente = new JButton("Siguiente");
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				labelNombreCanción.setText(laLista.get(actual).getTitulo()+" del autor "+ laLista.get(actual).getAutor() + "y del genero " + laLista.get(actual).getAlbum());
 				actual++;
 				if(actual>laLista.size()-1){
 					actual = 0;
 				}
+				labelNombreCanción.setText(laLista.get(actual).getTitulo()+" del autor "+ laLista.get(actual).getAutor() + "y del genero " + laLista.get(actual).getAlbum());
+				
 				try {
 					rp.stop();
 					reproducir();

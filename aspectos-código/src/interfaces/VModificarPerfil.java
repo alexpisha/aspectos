@@ -29,7 +29,6 @@ public class VModificarPerfil extends JFrame {
 	private JTextField textUser;
 	private JTextField textPass;
 	private JTextField textEmail;
-	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -108,17 +107,17 @@ public class VModificarPerfil extends JFrame {
 		label.setBounds(23, 141, 97, 22);
 		panelInsertar.add(label);
 		
-		textField = new JTextField(ControladorMusica.getControladorMusica().getUsuario().getEmail());
-		textField.setColumns(10);
-		textField.setBounds(138, 142, 272, 22);
-		panelInsertar.add(textField);
+		textEmail = new JTextField(ControladorMusica.getControladorMusica().getUsuario().getEmail());
+		textEmail.setColumns(10);
+		textEmail.setBounds(138, 142, 272, 22);
+		panelInsertar.add(textEmail);
 
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
 	            String user=textUser.getText();
 	            String pass= textPass.getText();
-	            String email= textPass.getText();
+	            String email= textEmail.getText();
 	            Usuario usuarioActual = ControladorMusica.getControladorMusica().getUsuario();
 	            int id= Integer.parseInt(SGBD.getSGBD().obtenerId(usuarioActual.getNombre()));
 	            System.out.println("el id es"+id);
@@ -152,7 +151,6 @@ public class VModificarPerfil extends JFrame {
 							SGBD.getSGBD().actualizar(sql);
 							ControladorMusica.getControladorMusica().actualizarEmail(email);
 
-							
 						} catch (SQLException e1) {
 							e1.printStackTrace();
 						}

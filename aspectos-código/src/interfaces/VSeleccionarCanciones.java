@@ -15,15 +15,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import modelo.Cancion;
 import modelo.ControladorMusica;
-import modelo.Reproductor;
 
 import java.awt.GridLayout;
 
@@ -33,9 +31,7 @@ public class VSeleccionarCanciones extends JFrame {
 	private ArrayList<Cancion> listaEntera;
 	private ArrayList<JCheckBox> listaCheck;
 	private ArrayList<Cancion> listaSeleccionadas;
-	private JTextArea textArea;
-	private JTextField textField;
-	private JCheckBox chckbxReproducirTodas;
+	private JRadioButton reproducirTodas;
 
 
 	/**
@@ -72,8 +68,8 @@ public class VSeleccionarCanciones extends JFrame {
 		contentPane.add(getPanelTitulo(), BorderLayout.NORTH);
 		contentPane.add(getPanelInsertar(), BorderLayout.CENTER);
 		contentPane.add(getPanelBotones(), BorderLayout.SOUTH);
-
 		setContentPane(contentPane);
+
 	}
 	
 	private JPanel getPanelTitulo(){
@@ -84,26 +80,7 @@ public class VSeleccionarCanciones extends JFrame {
 		lblBienvenida.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBienvenida.setFont(new Font("Arial", Font.BOLD, 26));
 		panelTitulo.add(lblBienvenida, BorderLayout.NORTH);
-		
-	/*	textField = new JTextField("Busca una cancion por título, álbum o autor.");
-		textField.setColumns(5);
-		panelTitulo.add(textField, BorderLayout.CENTER);
-		
-		
-		JButton ok= new JButton("OK");
-		ok.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String cancionABuscar = textField.getText();
-				String ruta = ControladorMusica.getControladorMusica().obtenerRuta(cancionABuscar);
-			}
-		});
-		panelTitulo.add(ok, BorderLayout.EAST);
-		
-		JLabel lbl = new JLabel("            ");
-		lblBienvenida.setFont(new Font("Arial", Font.BOLD, 26));
-		panelTitulo.add(lbl, BorderLayout.SOUTH);
-		*/
-		
+			
 		return panelTitulo;
 	}
 
@@ -120,10 +97,12 @@ public class VSeleccionarCanciones extends JFrame {
 	        }});
 		cancelar.setBounds(274, 211, 97, 25);
 		panelBotones.add(cancelar);
+		
+		
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
-	    	    if(chckbxReproducirTodas.isSelected()){
+	    	    if(reproducirTodas.isSelected()){
 	            	VEscucharCancion.setListaCanciones(listaEntera);
 	            	VEscucharCancion v;
 	    			try {
@@ -162,16 +141,28 @@ public class VSeleccionarCanciones extends JFrame {
 		JPanel panelInsertar = new JPanel();
 		panelInsertar.setLayout(new GridLayout(0, 1, 10, 10));
 		
-		
-		System.out.println(listaEntera.size());
 		for(int i=0; i<listaCheck.size(); i++){
 			JCheckBox checkbox = listaCheck.get(i);
 			checkbox.setHorizontalAlignment(SwingConstants.CENTER);
 			panelInsertar.add(checkbox);
 		}
 	    JScrollPane scroll = new JScrollPane(panelInsertar);
-	    chckbxReproducirTodas = new JCheckBox("Reproducir todas");
-		panelInsertar.add(chckbxReproducirTodas);
+	    
+	    reproducirTodas = new JRadioButton("Reproducir todas");
+	    reproducirTodas.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	        	if(reproducirTodas.isSelected()){
+	    			for(int i=0; i<listaCheck.size();i++){
+	    	    		listaCheck.get(i).setSelected(true);
+	    	    	}
+	        	}
+	        	else{
+	        		for(int i=0; i<listaCheck.size();i++){
+	    	    		listaCheck.get(i).setSelected(false);
+	    	    	}
+	        	}
+	        }});
+		panelInsertar.add(reproducirTodas);
 		return scroll;
 	}	
 	
@@ -202,6 +193,8 @@ public class VSeleccionarCanciones extends JFrame {
 		listaSeleccionadas= lista;
 		
 	}
+	
+
 }
 
 
