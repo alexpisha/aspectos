@@ -7,20 +7,24 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
 import modelo.Cancion;
 import modelo.ControladorMusica;
 import modelo.Reproductor;
+
 import java.awt.GridLayout;
 
 public class VSeleccionarCanciones extends JFrame {
@@ -104,24 +108,6 @@ public class VSeleccionarCanciones extends JFrame {
 
 	private JPanel getPanelBotones(){
 		JPanel panelBotones = new JPanel();
-		JButton btnAceptar = new JButton("Aceptar");
-		btnAceptar.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {
-	        	getYSetSeleccionados();
-	        	VEscucharCancion.setListaCanciones(listaSeleccionadas);
-	        	System.out.println(listaSeleccionadas);
-	        	VEscucharCancion v;
-				try {
-					v = new VEscucharCancion();
-					v.setVisible(true);
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-	        	dispose();
-	        }});
-
-		btnAceptar.setBounds(138, 211, 97, 25);
-		panelBotones.add(btnAceptar);
 				
 		
 		JButton cancelar = new JButton("Volver");
@@ -133,6 +119,29 @@ public class VSeleccionarCanciones extends JFrame {
 	        }});
 		cancelar.setBounds(274, 211, 97, 25);
 		panelBotones.add(cancelar);
+		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	        	if(listaCheck != null ){
+		        	getYSetSeleccionados();
+		        	VEscucharCancion.setListaCanciones(listaSeleccionadas);
+		        	System.out.println(listaSeleccionadas);
+		        	VEscucharCancion v;
+					try {
+						v = new VEscucharCancion();
+						v.setVisible(true);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+		        	dispose();
+	        	}
+	        	else{
+					JOptionPane.showMessageDialog(null, "Es necesario elegir como mínimo una canción. Pulsa aceptar e inténtalo de nuevo.");
+	        	}
+	        }});
+		
+				btnAceptar.setBounds(138, 211, 97, 25);
+				panelBotones.add(btnAceptar);
 		return panelBotones;
 	}
 	

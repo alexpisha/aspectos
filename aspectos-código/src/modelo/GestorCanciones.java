@@ -86,4 +86,16 @@ public class GestorCanciones {
 		return lista;
 	}	
 	
+	public ArrayList<Cancion> buscarCancionesPorAlbum(String album) {
+		Iterator<Cancion> it = listaCanciones.iterator();
+		Cancion c = new Cancion(0, "", "", "","");
+		ArrayList<Cancion> lista = new ArrayList<Cancion>();
+		while(it.hasNext()){
+			c = it.next();
+			if (c.getAlbum().equals(album)){
+				lista.add(c);
+			}
+		}
+		return lista;
+	}	
 }

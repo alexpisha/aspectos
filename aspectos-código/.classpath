@@ -5,5 +5,7 @@
 	<classpathentry exported="true" kind="lib" path="basicplayer3.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="mysql-connector-java-5.1.38-bin.jar"/>
 	<classpathentry kind="lib" path="org-apache-commons-logging.jar"/>
+	<classpathentry kind="lib" path="mp3plugin.jar"/>
+	<classpathentry kind="lib" path="tritonus-share-0.3.7-2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

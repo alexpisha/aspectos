@@ -76,27 +76,33 @@ public class VEscucharCancion extends JFrame {
 		setResizable(false);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		reproducir();
+		rp.play();
 		contentPane.setLayout(null);
 		
 		JLabel lblEstasIdentificadoComo = new JLabel("Estas identificado como:");
-		lblEstasIdentificadoComo.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblEstasIdentificadoComo.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblEstasIdentificadoComo.setForeground(Color.WHITE);
-		lblEstasIdentificadoComo.setBounds(10, 11, 147, 14);
+		lblEstasIdentificadoComo.setBounds(10, 11, 250, 14);
 		contentPane.add(lblEstasIdentificadoComo);
 		
 		JLabel lblIdUsuario = new JLabel(ControladorMusica.getControladorMusica().getUsuario().getNombre());
-		lblIdUsuario.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblIdUsuario.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblIdUsuario.setForeground(Color.WHITE);
-		lblIdUsuario.setBounds(158, 11, 147, 14);
+		lblIdUsuario.setBounds(20, 38, 147, 14);
 		contentPane.add(lblIdUsuario);
 		
-		JButton btnCerrarSesion = new JButton("Cerrar sesi\u00F3n");
+		JButton btnCerrarSesion = new JButton("Volver");
 		btnCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ControladorMusica.getControladorMusica().resetearListasUsuario();
-				ControladorMusica.getControladorMusica().resetearDatosUsuario();
-				VPrincipal v = new VPrincipal();
+				VMenu v = new VMenu();
 				v.setVisible(true);
+				try {
+					rp.stop();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				laLista = new ArrayList<Cancion>();
 				dispose();
 			}
 		});
@@ -109,25 +115,25 @@ public class VEscucharCancion extends JFrame {
 		lblEstasEscuchando.setBounds(10, 290, 569, 23);
 		contentPane.add(lblEstasEscuchando);
 		
-		JLabel labelNombreCanción = new JLabel(laLista.get(actual).getAlbum());
+		Cancion c= laLista.get(actual);
+		JLabel labelNombreCanción = new JLabel(c.getTitulo()+" del autor "+ c.getAutor() + "y del album " + c.getAlbum());
 		labelNombreCanción.setForeground(Color.WHITE);
 		labelNombreCanción.setFont(new Font("Tahoma", Font.BOLD, 17));
 		labelNombreCanción.setBounds(10, 324, 569, 55);
 		contentPane.add(labelNombreCanción);
 		
 		JButton btnPlayPause = new JButton("Play / Pause");
-		rp.AbrirFichero(laLista.get(actual).getRuta());
 		btnPlayPause.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(reproduciendo){
 					try {
-						rp.Stop();
+						rp.stop();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}	
 				}else{
 					try {
-						rp.Play();
+						rp.continuar();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -142,8 +148,8 @@ public class VEscucharCancion extends JFrame {
 		btnAnterior.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					rp.AbrirFichero(laLista.get(actual).getRuta());
-					rp.Play();
+					rp.abrirFichero(laLista.get(actual).getRuta());
+					rp.play();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -165,8 +171,8 @@ public class VEscucharCancion extends JFrame {
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					rp.AbrirFichero(laLista.get(actual).getRuta());
-					rp.Play();
+					rp.abrirFichero(laLista.get(actual).getRuta());
+					rp.play();
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -188,8 +194,8 @@ public class VEscucharCancion extends JFrame {
 		btnCompartir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Cancion c= laLista.get(actual);
-				String txt= "¡Estoy escuchando" + c.getTitulo() + "de" + c.getAutor() + "del album" +
-				c.getAlbum() +" en EUITI MUSIC PLAYER 3!";
+				String txt= "¡Estoy%20escuchando%20" + c.getTitulo() + "%20de%20" + c.getAutor() + "%20del%20album%20" +
+				c.getAlbum() +"%20en%20EUITI%20MUSIC%20PLAYER%203!";
 				ControladorMusica.getControladorMusica().compartirTwitter(txt);
 			}
 		});
@@ -200,5 +206,14 @@ public class VEscucharCancion extends JFrame {
 		lblNewLabel_1.setIcon(new ImageIcon(VEscucharCancion.class.getResource("/imagenes/imagen_play.png")));
 		lblNewLabel_1.setBounds(0, 0, 589, 390);
 		contentPane.add(lblNewLabel_1);
+		}
+	
+		private void reproducir() throws Exception{
+			String r= getClass().getResource(laLista.get(actual).getRuta()).toString();
+			r= r.split("file:/")[1];
+			String aux[] = r.split("aspectos-");
+			String ruta = aux[0]+"aspectos-código/bin/"+aux[1].split("/bin")[1];
+
+			rp.abrirFichero(ruta);
 		}
 }

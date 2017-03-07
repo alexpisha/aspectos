@@ -75,7 +75,7 @@ public class VElegirCanciones extends JFrame {
 		textField.setColumns(10);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Titulo", "Autores"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Titulo", "Autor", "Album"}));
 		comboBox.setBounds(10, 52, 83, 20);
 		contentPane.add(comboBox);
 		
@@ -92,7 +92,10 @@ public class VElegirCanciones extends JFrame {
 						if(c!=null){
 							lista.add(c);
 						}
-					} else {
+					}if(seleccion.equals("Album")){
+						lista = GestorCanciones.getGestorCanciones().buscarCancionesPorAlbum(textField.getText());
+					}
+					else {
 						lista = GestorCanciones.getGestorCanciones().buscarCancionesPorAutores(textField.getText());
 					}
 				}
@@ -109,7 +112,7 @@ public class VElegirCanciones extends JFrame {
 				}
 			}
 		});
-		btnAceptar.setBounds(277, 140, 89, 23);
+		btnAceptar.setBounds(255, 140, 88, 23);
 		contentPane.add(btnAceptar);
 		
 		JButton btnVolver = new JButton("Volver");
@@ -120,7 +123,7 @@ public class VElegirCanciones extends JFrame {
 				v.setVisible(true);
 			}
 		});
-		btnVolver.setBounds(140, 140, 89, 23);
+		btnVolver.setBounds(170, 140, 78, 23);
 		contentPane.add(btnVolver);
 		
 		JLabel labelMostrandoTitulo = new JLabel("");
