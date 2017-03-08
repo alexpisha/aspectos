@@ -35,6 +35,7 @@ public class VElegirCanciones extends JFrame {
 	private JTextField textField;
 	private JCheckBox chckbx;
 	private static ArrayList<Cancion> lista;
+	private boolean crearLista=false;
 
 
 	/**
@@ -109,7 +110,9 @@ public class VElegirCanciones extends JFrame {
 				else{
 					VSeleccionarCanciones v;
 					v = new VSeleccionarCanciones();
-				//	v.setListaEntera(lista);
+					if(crearLista){
+						v.setCrearLista();
+					}
 					setVisible(false);
 					v.setVisible(true);
 				}
@@ -146,5 +149,9 @@ public class VElegirCanciones extends JFrame {
 	
 	public static ArrayList<Cancion> getListaCanciones(){
 		return lista;
+	}
+	
+	public void setCrearLista(){
+		crearLista= !crearLista;
 	}
 }

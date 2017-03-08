@@ -45,8 +45,8 @@ public class GestorListasReproduccion {
 		return (SGBD.getSGBD().getListasReprod(pUsuario));
 	}
 	
-	public void eliminarListaRep(String pNombreLista){
-		SGBD.getSGBD().eliminarListaRep(pNombreLista);
+	public int eliminarListaRep(String pNombreLista){
+		return SGBD.getSGBD().eliminarListaRep(pNombreLista);
 	}
 	
 	

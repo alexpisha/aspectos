@@ -109,7 +109,7 @@ public class VListasReproduccion extends JFrame  {
 		btnGestionar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				VGestionarLista v = new VGestionarLista(radioSeleccionado());
+				VGestionarLista v = new VGestionarLista(nombreLista);
 				dispose();
 				v.setVisible(true);
 
@@ -163,10 +163,17 @@ public class VListasReproduccion extends JFrame  {
 				if(b!=null){
 					int resp=JOptionPane.showConfirmDialog(null,"¿Estás seguro de que quieres borrar la lista?");
 					if (JOptionPane.OK_OPTION == resp){
-						GestorListasReproduccion.getGestorListasReproduccion().eliminarListaRep(nombreLista);
-						VListasReproduccion v = new VListasReproduccion();
-						dispose();
-						v.setVisible(true);
+						int aux= GestorListasReproduccion.getGestorListasReproduccion().eliminarListaRep(nombreLista);
+						if(aux!=-1){
+							JOptionPane.showMessageDialog(null, "La lista de reproducción ha sido eliminada.");
+							VListasReproduccion v = new VListasReproduccion();
+							dispose();
+							v.setVisible(true);
+						}
+						else{
+							JOptionPane.showMessageDialog(null, "Lo sentimos, ha ocurrido un error.");
+
+						}
 				     }
 				}
 			}
@@ -254,16 +261,6 @@ public class VListasReproduccion extends JFrame  {
 			frameSize.width = screenSize.width;
 		}
 		setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
-	}
-	private String radioSeleccionado(){
-		String nombre="";
-		for(int i=0; i<buttons.length;i++){
-			if(buttons[i].isSelected()){
-				nombre=buttons[i].getName();
-			}
-			
-		}
-		return nombre;
 	}
 
 }

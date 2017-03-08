@@ -107,7 +107,8 @@ public class VCrearLista extends JFrame {
 				}
 				else{
 					GestorListasReproduccion.getGestorListasReproduccion().insertarListaRepr(textField.getText(), nombre);
-					VListasReproduccion v = new VListasReproduccion();
+					VElegirCanciones v = new VElegirCanciones();
+					v.setCrearLista();
 					dispose();
 					v.setVisible(true);
 				}

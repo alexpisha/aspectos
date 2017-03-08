@@ -21,6 +21,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import modelo.Cancion;
+
 import java.awt.GridLayout;
 
 public class VSeleccionarCanciones extends JFrame {
@@ -30,6 +31,7 @@ public class VSeleccionarCanciones extends JFrame {
 	private ArrayList<JCheckBox> listaCheck;
 	private ArrayList<Cancion> listaSeleccionadas;
 	private JRadioButton reproducirTodas;
+	private boolean crearLista=false;
 
 
 	/**
@@ -102,27 +104,45 @@ public class VSeleccionarCanciones extends JFrame {
 		btnAceptar.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
 	    	    if(reproducirTodas.isSelected()){
-	            	VEscucharCancion.setListaCanciones(listaEntera);
-	            	VEscucharCancion v;
-	    			try {
-	    				v = new VEscucharCancion();
-	    				v.setVisible(true);
-	    			} catch (Exception e1) {
-	    				e1.printStackTrace();
-	    			}
-	            	dispose();
+					if(crearLista){
+						JOptionPane.showMessageDialog(null, "Ya hemos creado tu lista.");
+						VListasReproduccion v;
+						v = new VListasReproduccion();
+						dispose();
+						v.setVisible(true);
+					}
+					else{
+		            	VEscucharCancion.setListaCanciones(listaEntera);
+		            	VEscucharCancion v;
+		    			try {
+		    				v = new VEscucharCancion();
+		    				v.setVisible(true);
+		    			} catch (Exception e1) {
+		    				e1.printStackTrace();
+		    			}
+		            	dispose();
+					}
 	    	    }
 	    	    else if(listaCheck != null ){
-		        	getYSetSeleccionados();
-		        	VEscucharCancion.setListaCanciones(listaSeleccionadas);
-		        	VEscucharCancion v;
-					try {
-						v = new VEscucharCancion();
+	    	    	getYSetSeleccionados();
+	    	    	if(crearLista){
+						JOptionPane.showMessageDialog(null, "Ya hemos creado tu lista.");
+						VListasReproduccion v;
+						v = new VListasReproduccion();
+						dispose();
 						v.setVisible(true);
-					} catch (Exception e1) {
-						e1.printStackTrace();
+					}else{
+			        	
+			        	VEscucharCancion.setListaCanciones(listaSeleccionadas);
+			        	VEscucharCancion v;
+						try {
+							v = new VEscucharCancion();
+							v.setVisible(true);
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+			        	dispose();
 					}
-		        	dispose();
 	        	}
 	        	else{
 					JOptionPane.showMessageDialog(null, "Es necesario elegir como mínimo una canción. Pulsa aceptar e inténtalo de nuevo.");
@@ -191,6 +211,10 @@ public class VSeleccionarCanciones extends JFrame {
 		}
 		listaSeleccionadas= lista;
 		
+	}
+	
+	public void setCrearLista(){
+		crearLista= !crearLista;
 	}
 	
 

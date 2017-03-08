@@ -257,24 +257,11 @@ public class SGBD {
 	 * @return
 	 */
 	public int insertarListaRepr(String pNombreLista, String pUsuario) {
-		int id = 0;
-		
-			try {
-				String sentenciaSQL = "SELECT id FROM Usuario WHERE nombre='" + pUsuario + "';";
-				rs = sentencia.executeQuery(sentenciaSQL);
-				while (rs.next()) {
-					id=this.rs.getInt(1);
-				}
-
-			} catch (Exception e) {
-				e.printStackTrace();
-
-			}
+		int id = Integer.parseInt(obtenerId(pUsuario));
 		
 		try {
-			PreparedStatement statement = connection.prepareStatement(
-					"insert into ListaReproduccion(tituloLista,idUsuario, listaIdCanciones) values('" + pNombreLista + "','" + id +"' "+ "''"+");");
-			statement.executeUpdate();
+			String sql ="insert into ListaReproduccion (tituloLista, idUsuario) values('" + pNombreLista + "','" + id +"');";
+			sentencia.executeUpdate(sql);
 		} catch (Exception e) {
 			e.printStackTrace();
 		
@@ -284,19 +271,15 @@ public class SGBD {
 	}
 	public void modificarListaRepr(String pNombreLista, int pIdUsuario, String pListaCanciones, int idLista) {
 		try {
-			PreparedStatement statement = connection.prepareStatement(
-					"Update ListaReproduccion set listaIdCanciones='" + pListaCanciones + "' where idUsuario='" + pIdUsuario +" AND tituloLista = "+pNombreLista+ "';");
-			statement.executeUpdate();
+			String sql= "Update ListaReproduccion set listaIdCanciones='" + pListaCanciones + "' where idUsuario='" + pIdUsuario +" AND tituloLista = "+pNombreLista+ "';";
+			sentencia.executeUpdate(sql);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * obtiene la lista de ids de las canciones de una lista de reproduccion
-	 * 
-	 * @param nombreLista
-	 * @return
-	 */
+
+
 	public String getCancionesLista(String nombreLista) {
 		String canciones ="";
 			try {
@@ -315,7 +298,8 @@ public class SGBD {
 	public Cancion obtCancion(String id){
 		Cancion cancion = new Cancion(0,"","","","");
 			try {
-				rs = sentencia.executeQuery("Select * from Cancion where id=" + id + ";");
+				String sql = "Select * from Cancion where id='" + id + "';";
+				rs = sentencia.executeQuery(sql);
 				while (rs.next()) {
 					 cancion = new Cancion(this.rs.getInt(1), this.rs.getString(2), this.rs.getString(3),this.rs.getString(4),this.rs.getString(5));
 				}
@@ -327,15 +311,16 @@ public class SGBD {
 			return cancion;
 	}
 	
-	public void eliminarListaRep(String pNombreLista) {
+	public int eliminarListaRep(String pNombreLista) {
+		int r=-1;
 		try {
-			//TODO --> No esta bien la sintaxis SQL- Repasar
-			Statement statement =connection.createStatement();
-			String sql ="Delete from ListaReproduccion where tituloLista = "+pNombreLista+ "';";
-			statement.executeUpdate(sql);
+			String sql ="Delete from ListaReproduccion WHERE tituloLista ='" + pNombreLista + "';";
+			r = sentencia.executeUpdate(sql);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return r;
 	}
 	
 
