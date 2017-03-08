@@ -290,4 +290,24 @@ public class SGBD {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * obtiene la lista de ids de las canciones de una lista de reproduccion
+	 * 
+	 * @param nombreLista
+	 * @return
+	 */
+	public String getCancionesLista(String nombreLista) {
+		String canciones ="";
+			try {
+				rs = sentencia.executeQuery("Select listaIdCanciones from ListaReproduccion where tituloLista='" + nombreLista + "';");
+				while (rs.next()) {
+					 canciones =this.rs.getString(1);
+				}
+				
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+			}
+			return canciones;
+		}
 }

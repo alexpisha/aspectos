@@ -1,58 +1,48 @@
 package interfaces;
 
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.SystemColor;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.MatteBorder;
 
+import modelo.Cancion;
+import modelo.ControladorMusica;
 import modelo.GestorListasReproduccion;
 
+import java.awt.GridLayout;
 
-public class VGestionarLista extends JFrame  {
+public class VGestionarLista extends JFrame {
 
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JRadioButton[] buttons;
-	private ButtonGroup grupo;
-	private JPanel panelRadioButtons;
-	private int partidaSeleccionada;
-	private String partidaSelec;
-	private Image fondo;
-	
+	private ArrayList<Cancion> listaEntera;
+	private ArrayList<JCheckBox> listaCheck;
+	private ArrayList<Cancion> listaSeleccionadas;
+	private JRadioButton reproducirTodas;
 
+
+	/**
+	 * Launch the application.
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-			@Override
 			public void run() {
 				try {
-					VGestionarLista frame = new VGestionarLista("");
+					VSeleccionarCanciones frame = new VSeleccionarCanciones();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -61,113 +51,111 @@ public class VGestionarLista extends JFrame  {
 		});
 	}
 
-	public VGestionarLista(String nombrelista)  {
-		setTitle("Listas de Reproduccion");
+	/**
+	 * Create the frame.
+	 */
+	public VGestionarLista(String nombreLista) {
 		Image iconPrincipal = new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage();
 		setIconImage(iconPrincipal);
+		setTitle("EUITI MUSIC PLAYER 3");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 500, 350);
 		setResizable(false);
-
-		// ----------------- SONIDO ------------------------
-		Image icono = new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage();
-		setIconImage(icono);
-		//fondo = new ImageIcon(getClass().getResource("/imagenes/ecualizador1.gif")).getImage();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 500);
-		contentPane = new JPanel() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void paintComponent(Graphics g) {
-				g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
-			}
-		};
+		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setListaEntera(GestorListasReproduccion.getGestorListasReproduccion().getCancionesLista(nombreLista));
+		setListaCheck();
+		contentPane.add(getPanelTitulo(), BorderLayout.NORTH);
+		contentPane.add(getPanelInsertar(), BorderLayout.CENTER);
+		contentPane.add(getPanelBotones(), BorderLayout.SOUTH);
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 
-		JLabel lblListasReproduccion = new JLabel("Listas de Reproduccion");
-		lblListasReproduccion.setForeground(Color.WHITE);
-		lblListasReproduccion.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		lblListasReproduccion.setHorizontalAlignment(SwingConstants.CENTER);
-		lblListasReproduccion.setBounds(108, 11, 318, 25);
-		contentPane.add(lblListasReproduccion);
-		ImageIcon icon= new ImageIcon(VPrincipal.class.getResource("/imagenes/botones.jpg"));
-		Image image = icon.getImage();
-		Image boton = image.getScaledInstance(190, 47,  java.awt.Image.SCALE_SMOOTH);
-		JButton btnAceptar = new JButton("Añadir Canciones",new ImageIcon(boton));
-		btnAceptar.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnAceptar.setVerticalTextPosition(SwingConstants.CENTER);
-		btnAceptar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAceptar.setForeground(SystemColor.text);
-		
+	}
+	
+	private JPanel getPanelTitulo(){
+		JPanel panelTitulo = new JPanel();
+		panelTitulo.setLayout(new BorderLayout(0, 0));
 
-		btnAceptar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				GestorListasReproduccion.setNombreListaSeleccionada(nombrelista);
-				VElegirCanciones v = new VElegirCanciones();
-				dispose();
-				v.setVisible(true);
-			}
-		});
+		JLabel lblBienvenida = new JLabel("Gestionar Lista");
+		lblBienvenida.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBienvenida.setFont(new Font("Arial", Font.BOLD, 26));
+		panelTitulo.add(lblBienvenida, BorderLayout.NORTH);
+			
+		return panelTitulo;
+	}
 
-		btnAceptar.setBounds(400, 400, 150, 45);
-		contentPane.add(btnAceptar);
-		
-		JButton btnCancelar = new JButton("Atras",new ImageIcon(boton));
-		btnCancelar.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnCancelar.setVerticalTextPosition(SwingConstants.CENTER);
-		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnCancelar.setForeground(SystemColor.text);
-		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				VListasReproduccion v = new VListasReproduccion();
-				dispose();
-				v.setVisible(true);
+	private JPanel getPanelBotones(){
+		JPanel panelBotones = new JPanel();
 				
+		
+		JButton cancelar = new JButton("Volver");
+		cancelar.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	        	VListasReproduccion v= new VListasReproduccion();
+	        	v.setVisible(true);
+	        	dispose();
+	        }});
+		cancelar.setBounds(274, 211, 97, 25);
+		panelBotones.add(cancelar);
+		
+		
+		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	    	    
+	    	   
+	        }});
+		
+				btnAceptar.setBounds(138, 211, 97, 25);
+				panelBotones.add(btnAceptar);
+				
+				
+		return panelBotones;
+	}
+	
+	private JScrollPane getPanelInsertar(){
+		JPanel panelInsertar = new JPanel();
+		panelInsertar.setLayout(new GridLayout(0, 1, 10, 10));
+		
+		for(int i=0; i<listaCheck.size(); i++){
+			JCheckBox checkbox = listaCheck.get(i);
+			checkbox.setHorizontalAlignment(SwingConstants.CENTER);
+			panelInsertar.add(checkbox);
+		}
+	    JScrollPane scroll = new JScrollPane(panelInsertar);
+		return scroll;
+	}	
+	
+	public void setListaEntera(ArrayList<Cancion> pL){
+		listaEntera= pL;
+	}
+	
+	private void setListaCheck(){
+		ArrayList<JCheckBox> lista= new ArrayList<JCheckBox>();
+		for(int i= 0; i<listaEntera.size();i++){
+			JCheckBox checkBox = new JCheckBox(listaEntera.get(i).getTitulo());
+			lista.add(checkBox);
+		}
+		
+		listaCheck= lista;
+	}
+	
+	
+	private void getYSetSeleccionados(){
+		ArrayList<Cancion> lista= new ArrayList<Cancion>();
+		Cancion c;
+		for(int i=0; i<listaCheck.size();i++){
+			if(listaCheck.get(i).isSelected()){
+				c=listaEntera.get(i);
+				lista.add(c);
 			}
-		});
-		
-		
-		
-		btnCancelar.setBounds(30, 400, 100, 45);
-		contentPane.add(btnCancelar);
-		
-		JButton btnBorrar = new JButton("Borrar Cancion",new ImageIcon(boton));
-		btnBorrar.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnBorrar.setVerticalTextPosition(SwingConstants.CENTER);
-		btnBorrar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnBorrar.setForeground(SystemColor.text);
-		
-		
-		
-		btnBorrar.setBounds(225, 400, 150, 45);
-		contentPane.add(btnBorrar);
-		centrarFrame();
-	}
-
-	
-
-
-
-	
-	
-
-	private void cerrar() {
-		this.dispose();
-	}
-	
-	public void centrarFrame() {
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		Dimension frameSize = getSize(); // Tamaï¿½o del frame actual (ancho x
-											// alto)
-		if (frameSize.height > screenSize.height) {
-			frameSize.height = screenSize.height;
 		}
-		if (frameSize.width > screenSize.width) {
-			frameSize.width = screenSize.width;
-		}
-		setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
+		listaSeleccionadas= lista;
+		
 	}
+	
 
 }
+
+

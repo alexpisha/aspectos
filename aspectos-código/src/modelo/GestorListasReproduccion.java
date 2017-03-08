@@ -33,4 +33,14 @@ public class GestorListasReproduccion {
 	}
 	public ArrayList<ListaReproduccion> getListasReprod(String pUsuario) {
 		return (SGBD.getSGBD().getListasReprod(pUsuario));}
+	public ArrayList<Cancion> getCancionesLista(String pNombreLista) {
+		ArrayList<Cancion> canciones = new ArrayList<Cancion>();
+		String listaids = SGBD.getSGBD().getCancionesLista(pNombreLista);
+		String[] lista = listaids.split(",");
+		for(int i =0; i< lista.length; i++){
+			Cancion c = SGBD.getSGBD().obtenerCancion(lista[i]);
+			canciones.add(c);
+		}
+		return 	canciones;
+	}
 }
