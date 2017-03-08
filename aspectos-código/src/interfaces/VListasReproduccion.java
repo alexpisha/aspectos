@@ -106,7 +106,7 @@ public class VListasReproduccion extends JFrame  {
 		btnGestionar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				VGestionarLista v = new VGestionarLista(panelRadioButtons.getName());
+				VGestionarLista v = new VGestionarLista(radioSeleccionado());
 				dispose();
 				v.setVisible(true);
 
@@ -231,6 +231,16 @@ public class VListasReproduccion extends JFrame  {
 			frameSize.width = screenSize.width;
 		}
 		setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
+	}
+	private String radioSeleccionado(){
+		String nombre="";
+		for(int i=0; i<buttons.length;i++){
+			if(buttons[i].isSelected()){
+				nombre=buttons[i].getName();
+			}
+			
+		}
+		return nombre;
 	}
 
 }

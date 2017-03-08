@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class GestorListasReproduccion {
 	private static GestorListasReproduccion miGestorListasReproduccion;
 	private static String nombreLista;
+	private static ListaReproduccion actual;
 	
 
 	private GestorListasReproduccion() {
@@ -17,6 +18,13 @@ public class GestorListasReproduccion {
 			return miGestorListasReproduccion;
 		}
 	}	
+	public ListaReproduccion getListaActual() {
+		return actual;
+	}
+
+	public static void setActual(ListaReproduccion pactual) {
+		actual=pactual;
+	}
 	public String getNombreListaSeleccionada() {
 		return nombreLista;
 	}
