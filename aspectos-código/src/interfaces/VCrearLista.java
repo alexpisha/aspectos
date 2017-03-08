@@ -103,7 +103,7 @@ public class VCrearLista extends JFrame {
 				String nombre = ControladorMusica.getControladorMusica().getUsuario().getNombre();
 				
 				if(GestorListasReproduccion.getGestorListasReproduccion().existeLista(nombre, textField.getText())){
-					//mostrar ventana error porque ya existe una lista con ese nombre
+					JOptionPane.showMessageDialog(null, "El nombre de la lista ya existe.");
 				}
 				else{
 					GestorListasReproduccion.getGestorListasReproduccion().insertarListaRepr(textField.getText(), nombre);

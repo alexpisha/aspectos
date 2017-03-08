@@ -106,7 +106,7 @@ public class VListasReproduccion extends JFrame  {
 		btnGestionar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				VGestionarLista v = new VGestionarLista();
+				VGestionarLista v = new VGestionarLista(panelRadioButtons.getName());
 				dispose();
 				v.setVisible(true);
 
@@ -203,7 +203,7 @@ public class VListasReproduccion extends JFrame  {
 					"-->: " + nombre);
 
 			//btn.addActionListener(this);
-			btn.setName("" + i);
+			btn.setName(nombre);
 			grupo.add(btn);
 			panelRadioButtons.add(btn);
 			buttons[i] = btn;

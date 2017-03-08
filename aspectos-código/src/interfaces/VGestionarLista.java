@@ -32,6 +32,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
+import modelo.GestorListasReproduccion;
+
 
 public class VGestionarLista extends JFrame  {
 
@@ -50,7 +52,7 @@ public class VGestionarLista extends JFrame  {
 			@Override
 			public void run() {
 				try {
-					VGestionarLista frame = new VGestionarLista();
+					VGestionarLista frame = new VGestionarLista("");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -59,7 +61,7 @@ public class VGestionarLista extends JFrame  {
 		});
 	}
 
-	public VGestionarLista()  {
+	public VGestionarLista(String nombrelista)  {
 		setTitle("Listas de Reproduccion");
 		Image iconPrincipal = new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage();
 		setIconImage(iconPrincipal);
@@ -102,6 +104,7 @@ public class VGestionarLista extends JFrame  {
 		btnAceptar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				GestorListasReproduccion.setNombreListaSeleccionada(nombrelista);
 				VElegirCanciones v = new VElegirCanciones();
 				dispose();
 				v.setVisible(true);
