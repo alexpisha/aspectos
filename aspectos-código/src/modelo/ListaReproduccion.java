@@ -6,7 +6,7 @@ public class ListaReproduccion {
 	private int id;
 	private String nombreLista;
 	private int idUsuario;
-	private ArrayList<Cancion> listaCanciones;
+	private ArrayList<Cancion> listaCanciones = new ArrayList<Cancion>();
 	
 	public ListaReproduccion(int id, int idUsuario, String listaIdCanciones, String nombreLista) {
 		this.id=id;
@@ -15,7 +15,7 @@ public class ListaReproduccion {
 		if(listaIdCanciones!=null){
 		String[] canciones =listaIdCanciones.split(",");
 		for(int i=0; i<canciones.length; i++){
-			Cancion c = SGBD.getSGBD().obtenerCancion(canciones[i].toString());
+			Cancion c = SGBD.getSGBD().obtCancion(canciones[i].toString());
 			this.listaCanciones.add(c);
 			
 		}

@@ -176,10 +176,6 @@ public class VListasReproduccion extends JFrame  {
 		JScrollPane scrollPane = new JScrollPane() {
 			private static final long serialVersionUID = 1L;
 
-			@Override
-			public void paintComponent(Graphics g) {
-				g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
-			}
 		};
 		scrollPane.setEnabled(false);
 		panelRadioButtons = new JPanel() {

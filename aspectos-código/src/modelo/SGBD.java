@@ -222,7 +222,7 @@ public class SGBD {
 				String sentenciaSQL = "SELECT * FROM ListaReproduccion WHERE idUsuario=" + id + ";";
 				rs = sentencia.executeQuery(sentenciaSQL);
 				while (rs.next()) {
-					ListaReproduccion lista = new ListaReproduccion(this.rs.getInt(1), this.rs.getInt(2), this.rs.getString(3),this.rs.getString(4));
+  					ListaReproduccion lista = new ListaReproduccion(this.rs.getInt(1), this.rs.getInt(2), this.rs.getString(3),this.rs.getString(4));
 					aDevolver.add(lista);
 				}
 
@@ -237,7 +237,7 @@ public class SGBD {
 	public Cancion obtenerCancion(String id) {
 	Cancion cancion = new Cancion(0,"","","","");
 		try {
-			rs = sentencia.executeQuery("Select * from cancion where id='" + id + "';");
+			rs = sentencia.executeQuery("Select * from Cancion where id='" + id + "';");
 			while (rs.next()) {
 				 cancion = new Cancion(this.rs.getInt(1), this.rs.getString(2), this.rs.getString(3),this.rs.getString(4),this.rs.getString(5));
 			}
@@ -309,5 +309,20 @@ public class SGBD {
 				e.printStackTrace();
 			}
 			return canciones;
+		}
+	//obtener cancion por titulo
+	public Cancion obtCancion(String id) {
+		Cancion cancion = new Cancion(0,"","","","");
+			try {
+				rs = sentencia.executeQuery("Select * from Cancion where id=" + id + ";");
+				while (rs.next()) {
+					 cancion = new Cancion(this.rs.getInt(1), this.rs.getString(2), this.rs.getString(3),this.rs.getString(4),this.rs.getString(5));
+				}
+				
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+			}
+			return cancion;
 		}
 }
