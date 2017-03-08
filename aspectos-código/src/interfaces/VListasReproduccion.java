@@ -21,10 +21,12 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -46,6 +48,7 @@ public class VListasReproduccion extends JFrame  {
 	private ButtonGroup grupo;
 	private JPanel panelRadioButtons;
 	private Image fondo;
+	private String nombreLista; 
 	
 
 	public static void main(String[] args) {
@@ -154,6 +157,20 @@ public class VListasReproduccion extends JFrame  {
 		btnCancelar.setBounds(30, 400, 100, 45);
 		contentPane.add(btnCancelar);
 		JButton btnBorrar = new JButton("Borrar lista",new ImageIcon(boton));
+		btnBorrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ButtonModel b= grupo.getSelection();
+				if(b!=null){
+					int resp=JOptionPane.showConfirmDialog(null,"¿Estás seguro de que quieres borrar la lista?");
+					if (JOptionPane.OK_OPTION == resp){
+						GestorListasReproduccion.getGestorListasReproduccion().eliminarListaRep(nombreLista);
+						VListasReproduccion v = new VListasReproduccion();
+						dispose();
+						v.setVisible(true);
+				     }
+				}
+			}
+		});
 		
 		btnBorrar.setForeground(SystemColor.text);
 		btnBorrar.setBackground(new Color(245, 216, 218));
@@ -199,6 +216,12 @@ public class VListasReproduccion extends JFrame  {
 					"-->: " + nombre);
 
 			//btn.addActionListener(this);
+			btn.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					nombreLista = nombre;
+					
+				}
+			});
 			btn.setName(nombre);
 			grupo.add(btn);
 			panelRadioButtons.add(btn);

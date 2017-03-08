@@ -21,8 +21,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import modelo.Cancion;
-import modelo.ControladorMusica;
-
 import java.awt.GridLayout;
 
 public class VSeleccionarCanciones extends JFrame {
@@ -63,7 +61,8 @@ public class VSeleccionarCanciones extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
-		setListaEntera(ControladorMusica.getControladorMusica().getTodasLasCanciones());
+	//	setListaEntera(ControladorMusica.getControladorMusica().getTodasLasCanciones());
+		setListaEntera(VElegirCanciones.getListaCanciones());
 		setListaCheck();
 		contentPane.add(getPanelTitulo(), BorderLayout.NORTH);
 		contentPane.add(getPanelInsertar(), BorderLayout.CENTER);

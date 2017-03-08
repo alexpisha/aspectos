@@ -36,11 +36,20 @@ public class GestorListasReproduccion {
 	public boolean existeLista(String pNombreUsuario, String pNombreLista){
 		return (SGBD.getSGBD().existeLista(pNombreUsuario, pNombreLista));
 	}
+	
 	public int insertarListaRepr(String pNombreLista, String pIdUsuario) {
 	 return (SGBD.getSGBD().insertarListaRepr(pNombreLista, pIdUsuario));
 	}
+	
 	public ArrayList<ListaReproduccion> getListasReprod(String pUsuario) {
-		return (SGBD.getSGBD().getListasReprod(pUsuario));}
+		return (SGBD.getSGBD().getListasReprod(pUsuario));
+	}
+	
+	public void eliminarListaRep(String pNombreLista){
+		SGBD.getSGBD().eliminarListaRep(pNombreLista);
+	}
+	
+	
 	public ArrayList<Cancion> getCancionesLista(String pNombreLista) {
 		ArrayList<Cancion> canciones = new ArrayList<Cancion>();
 		String listaids = SGBD.getSGBD().getCancionesLista(pNombreLista);

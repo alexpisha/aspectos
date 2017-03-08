@@ -200,6 +200,7 @@ public class SGBD {
 		// Si el contador es igual a 0 el jugador no tiene partidas guardadas
 		return (contador > 0);
 	}
+	
 	public ArrayList<ListaReproduccion> getListasReprod(String pUsuario) {
 		
 		int id = 0;
@@ -311,7 +312,7 @@ public class SGBD {
 			return canciones;
 		}
 	//obtener cancion por titulo
-	public Cancion obtCancion(String id) {
+	public Cancion obtCancion(String id){
 		Cancion cancion = new Cancion(0,"","","","");
 			try {
 				rs = sentencia.executeQuery("Select * from Cancion where id=" + id + ";");
@@ -324,5 +325,18 @@ public class SGBD {
 				e.printStackTrace();
 			}
 			return cancion;
+	}
+	
+	public void eliminarListaRep(String pNombreLista) {
+		try {
+			//TODO --> No esta bien la sintaxis SQL- Repasar
+			Statement statement =connection.createStatement();
+			String sql ="Delete from ListaReproduccion where tituloLista = "+pNombreLista+ "';";
+			statement.executeUpdate(sql);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+	}
+	
+
 }

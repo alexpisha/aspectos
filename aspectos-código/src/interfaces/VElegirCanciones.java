@@ -34,6 +34,8 @@ public class VElegirCanciones extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JCheckBox chckbx;
+	private static ArrayList<Cancion> lista;
+
 
 	/**
 	 * Launch the application.
@@ -82,31 +84,32 @@ public class VElegirCanciones extends JFrame {
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Cancion> lista = new ArrayList<Cancion>();
+				lista = new ArrayList<Cancion>();
 				if(chckbx.isSelected()){
 					lista = GestorCanciones.getGestorCanciones().getTodasLasCanciones();
 				}	
-				else{String seleccion = comboBox.getSelectedItem().toString();
+				else{
+					String seleccion = comboBox.getSelectedItem().toString();
 					if(seleccion.equals("Titulo")){
 						Cancion c = GestorCanciones.getGestorCanciones().buscarCancionPorTitulo(textField.getText());
 						if(c!=null){
 							lista.add(c);
 						}
-					}if(seleccion.equals("Genero")){
+					}else if(seleccion.equals("Genero")){
 						lista = GestorCanciones.getGestorCanciones().buscarCancionesPorAlbum(textField.getText());
 					}
 					else {
 						lista = GestorCanciones.getGestorCanciones().buscarCancionesPorAutores(textField.getText());
 					}
 				}
-				
+
 				if(lista.isEmpty()){
 					JOptionPane.showMessageDialog(null, "No hemos encontrado canciones. Revisa el campo introducido e inténtalo de nuevo.");
 				}
 				else{
 					VSeleccionarCanciones v;
 					v = new VSeleccionarCanciones();
-					v.setListaEntera(lista);
+				//	v.setListaEntera(lista);
 					setVisible(false);
 					v.setVisible(true);
 				}
@@ -139,6 +142,9 @@ public class VElegirCanciones extends JFrame {
 		chckbx.setBounds(10, 81, 321, 25);
 		contentPane.add(chckbx);
 		
-		
+	}
+	
+	public static ArrayList<Cancion> getListaCanciones(){
+		return lista;
 	}
 }
