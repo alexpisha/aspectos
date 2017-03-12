@@ -100,10 +100,12 @@ public class VGestionarLista extends JFrame {
 		panelBotones.add(cancelar);
 		
 		
-		JButton btnAceptar = new JButton("Aceptar");
+		JButton btnAceptar = new JButton("Añadir Canciones");
 		btnAceptar.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
-	    	    
+	        	VElegirCanciones v= new VElegirCanciones();
+	        	v.setVisible(true);
+	        	dispose();
 	    	   
 	        }});
 		

@@ -53,10 +53,12 @@ public class GestorListasReproduccion {
 	public ArrayList<Cancion> getCancionesLista(String pNombreLista) {
 		ArrayList<Cancion> canciones = new ArrayList<Cancion>();
 		String listaids = SGBD.getSGBD().getCancionesLista(pNombreLista);
+		if(listaids!=null){
 		String[] lista = listaids.split(",");
 		for(int i =0; i< lista.length; i++){
 			Cancion c = SGBD.getSGBD().obtenerCancion(lista[i]);
 			canciones.add(c);
+		}
 		}
 		return 	canciones;
 	}

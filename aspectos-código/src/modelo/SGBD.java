@@ -188,9 +188,22 @@ public class SGBD {
 		return (contador > 0);
 	}
 	public boolean existeLista(String pUsuario, String pNombreLista) {
+		int id = 0;
+		
+		try {
+			String sentenciaSQL = "SELECT id FROM Usuario WHERE nombre='" + pUsuario + "';";
+			rs = sentencia.executeQuery(sentenciaSQL);
+			while (rs.next()) {
+				id=this.rs.getInt(1);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
 		int contador = 0;
 		try {
-			rs = sentencia.executeQuery("Select count(*) from ListaReproduccion where idUsuario='" + pUsuario +"' AND tituloLista='"+pNombreLista +"';");
+			rs = sentencia.executeQuery("Select count(*) from ListaReproduccion where idUsuario='" + id +"' AND tituloLista='"+pNombreLista +"';");
 			rs.next();
 			contador = rs.getInt("COUNT(*)");
 		} catch (SQLException e) {
