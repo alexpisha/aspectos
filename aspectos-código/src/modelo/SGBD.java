@@ -216,25 +216,13 @@ public class SGBD {
 	
 	public ArrayList<ListaReproduccion> getListasReprod(String pUsuario) {
 		
-		int id = 0;
-		
-		try {
-			String sentenciaSQL = "SELECT id FROM Usuario WHERE nombre='" + pUsuario + "';";
-			rs = sentencia.executeQuery(sentenciaSQL);
-			while (rs.next()) {
-				id=this.rs.getInt(1);
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-
-		}
-		
+		int id = Integer.parseInt(obtenerId(pUsuario));
 		ArrayList<ListaReproduccion> aDevolver = new ArrayList<ListaReproduccion>();
 		
 			try {
 				String sentenciaSQL = "SELECT * FROM ListaReproduccion WHERE idUsuario=" + id + ";";
 				rs = sentencia.executeQuery(sentenciaSQL);
+				
 				while (rs.next()) {
   					ListaReproduccion lista = new ListaReproduccion(this.rs.getInt(1), this.rs.getInt(2), this.rs.getString(3),this.rs.getString(4));
 					aDevolver.add(lista);

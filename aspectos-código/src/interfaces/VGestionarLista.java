@@ -33,6 +33,7 @@ public class VGestionarLista extends JFrame {
 	private ArrayList<JCheckBox> listaCheck;
 	private ArrayList<Cancion> listaSeleccionadas;
 	private JRadioButton reproducirTodas;
+	private String nombreLista;
 
 
 	/**
@@ -54,7 +55,8 @@ public class VGestionarLista extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VGestionarLista(String nombreLista) {
+	public VGestionarLista(final String nombreLista) {
+		this.nombreLista=nombreLista;
 		Image iconPrincipal = new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage();
 		setIconImage(iconPrincipal);
 		setTitle("EUITI MUSIC PLAYER 3");
@@ -104,6 +106,7 @@ public class VGestionarLista extends JFrame {
 		btnAceptar.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
 	        	VElegirCanciones v= new VElegirCanciones();
+	        	GestorListasReproduccion.setNombreListaSeleccionada(nombreLista);
 	        	v.setVisible(true);
 	        	dispose();
 	    	   

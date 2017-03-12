@@ -21,6 +21,10 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import modelo.Cancion;
+import modelo.ControladorMusica;
+import modelo.GestorListasReproduccion;
+import modelo.ListaReproduccion;
+import modelo.SGBD;
 
 import java.awt.GridLayout;
 
@@ -126,7 +130,17 @@ public class VSeleccionarCanciones extends JFrame {
 	    	    else if(listaCheck != null ){
 	    	    	getYSetSeleccionados();
 	    	    	if(crearLista){
-						JOptionPane.showMessageDialog(null, "Ya hemos creado tu lista.");
+	    	    		String lista=GestorListasReproduccion.getGestorListasReproduccion().getNombreListaSeleccionada();
+						String usuario= ControladorMusica.getControladorMusica().getUsuario().getNombre();
+	    	    		if("".equals(GestorListasReproduccion.getGestorListasReproduccion().getCancionesLista(lista))){
+	    	    			//insertar canciones en lista vacia
+	    	    			
+	    	    		}
+	    	    		else {
+	    	    			//modificar lista de canciones
+	    	    			
+	    	    		}
+	    	    		JOptionPane.showMessageDialog(null, "Ya hemos creado tu lista.");
 						VListasReproduccion v;
 						v = new VListasReproduccion();
 						dispose();

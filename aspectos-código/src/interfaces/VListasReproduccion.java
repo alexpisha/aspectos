@@ -196,6 +196,7 @@ public class VListasReproduccion extends JFrame  {
 		String usuario=ControladorMusica.getControladorMusica().getUsuario().getNombre();
 		ArrayList<ListaReproduccion> lista = GestorListasReproduccion.getGestorListasReproduccion().getListasReprod(usuario);
 		buttons = new JRadioButton[lista.size()];
+		
 		grupo = new ButtonGroup();
 		JScrollPane scrollPane = new JScrollPane() {
 			private static final long serialVersionUID = 1L;
@@ -234,8 +235,12 @@ public class VListasReproduccion extends JFrame  {
 			panelRadioButtons.add(btn);
 			buttons[i] = btn;
 			i++;
+			
 		}
-		scrollPane.setBounds(10, 47, 491, 203);
+		if(buttons.length>0){
+			buttons[0].setSelected(true);
+		}
+		scrollPane.setBounds(10, 47, 565, 342);
 		contentPane.add(scrollPane);
 
 		scrollPane.setViewportView(panelRadioButtons);
