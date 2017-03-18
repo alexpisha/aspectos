@@ -328,13 +328,15 @@ public class SGBD {
 		
 		try {
 			String sql ="Update ListaReproduccion set listaIdCanciones ='" + listaIdCanciones +"' WHERE tituloLista='"+nombreLista+"' AND idUsuario='"+id+"';";
-			System.out.println(sql);
+			
 			sentencia.executeUpdate(sql);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		
-	}
+		}
 
 	}
-	}
+	
+	
+}

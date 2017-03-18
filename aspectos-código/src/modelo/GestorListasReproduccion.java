@@ -76,5 +76,16 @@ public class GestorListasReproduccion {
 		
 		
 	}
+	public void borrarCancionesLista(ArrayList<Cancion> lista, String usuario, String nombreLista){
+		ArrayList<Cancion>canciones=getCancionesLista(nombreLista);
+		for(int i=0;i<lista.size();i++){
+			if(canciones.contains((lista).get(i))){
+				canciones.remove(lista.get(i));
+			}
+		}
+		crearListaCanciones(canciones, usuario, nombreLista);
+		
+		
+	}
 	
 }

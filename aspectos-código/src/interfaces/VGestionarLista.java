@@ -31,7 +31,7 @@ public class VGestionarLista extends JFrame {
 	private JPanel contentPane;
 	private ArrayList<Cancion> listaEntera;
 	private ArrayList<JCheckBox> listaCheck;
-	private ArrayList<Cancion> listaSeleccionadas;
+	private ArrayList<Cancion> listaSeleccionadas= new ArrayList<Cancion>();
 	private JRadioButton reproducirTodas;
 	private String nombreLista;
 
@@ -43,7 +43,7 @@ public class VGestionarLista extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VSeleccionarCanciones frame = new VSeleccionarCanciones();
+					VGestionarLista frame = new VGestionarLista("a");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -115,6 +115,26 @@ public class VGestionarLista extends JFrame {
 				btnAceptar.setBounds(138, 211, 97, 25);
 				panelBotones.add(btnAceptar);
 				
+				JButton btnBorrar = new JButton("Borrar Canciones");
+				btnBorrar.addActionListener(new ActionListener() {
+			        public void actionPerformed(ActionEvent e) {
+			        	getYSetSeleccionados();
+			        	if(listaSeleccionadas.size()>0 ){
+			        		String usuario= ControladorMusica.getControladorMusica().getUsuario().getNombre();
+			        		GestorListasReproduccion.getGestorListasReproduccion().borrarCancionesLista(listaSeleccionadas,usuario,nombreLista);
+			        		dispose();
+			        		VGestionarLista v= new VGestionarLista(nombreLista);
+				        	v.setVisible(true);
+				        	
+			        	}
+			        	else{
+							JOptionPane.showMessageDialog(null, "Es necesario elegir como mínimo una canción.");
+			        	}
+			    	   
+			        }});
+				
+				btnBorrar.setBounds(138, 211, 97, 25);
+				panelBotones.add(btnBorrar);
 				
 		return panelBotones;
 	}
