@@ -63,4 +63,18 @@ public class GestorListasReproduccion {
 		return 	canciones;
 	}
 	
+	public void crearListaCanciones(ArrayList<Cancion> lista, String usuario, String nombreLista){
+		String listaIds="";
+		for (int i = 0; i < lista.size(); i++) {
+			if(i==lista.size()-1){
+			listaIds=listaIds+lista.get(i).getId();
+			}else{
+			listaIds=listaIds+lista.get(i).getId()+",";
+			}
+		}
+		SGBD.getSGBD().insertarCancionesLista(listaIds, nombreLista, usuario);
+		
+		
+	}
+	
 }
