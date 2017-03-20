@@ -218,14 +218,14 @@ public class SGBD {
 		
 		int id = Integer.parseInt(obtenerId(pUsuario));
 		ArrayList<ListaReproduccion> aDevolver = new ArrayList<ListaReproduccion>();
-		
+		ListaReproduccion listaRepr = new ListaReproduccion(0,0,"","");
 			try {
-				String sentenciaSQL = "SELECT * FROM ListaReproduccion WHERE idUsuario=" + id + ";";
+				String sentenciaSQL = "SELECT * FROM ListaReproduccion WHERE idUsuario='" + id + "';";
 				rs = sentencia.executeQuery(sentenciaSQL);
 				
 				while (rs.next()) {
-  					ListaReproduccion lista = new ListaReproduccion(this.rs.getInt(1), this.rs.getInt(2), this.rs.getString(3),this.rs.getString(4));
-					aDevolver.add(lista);
+					listaRepr = new ListaReproduccion(this.rs.getInt(1), this.rs.getInt(2), this.rs.getString(3),this.rs.getString(4));
+					aDevolver.add(listaRepr);
 				}
 
 			} catch (Exception e) {

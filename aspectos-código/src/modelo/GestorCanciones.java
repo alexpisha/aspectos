@@ -49,6 +49,7 @@ public class GestorCanciones {
 	    			+ " ruta: " + c.getRuta() + " album: " + c.getAlbum());
 	    	listaCanciones.add(c);
 	    	rutaOriginal = br.readLine();
+	    	i++;
 	    	
 	    }
 	    br.close();
