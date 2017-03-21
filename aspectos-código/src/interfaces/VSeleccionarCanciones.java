@@ -107,9 +107,14 @@ public class VSeleccionarCanciones extends JFrame {
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
+	        	String lista=GestorListasReproduccion.getGestorListasReproduccion().getNombreListaSeleccionada();
+				String usuario= ControladorMusica.getControladorMusica().getUsuario().getNombre();
 	    	    if(reproducirTodas.isSelected()){
 					if(crearLista){
+						listaSeleccionadas= listaEntera;
 						JOptionPane.showMessageDialog(null, "Ya hemos creado tu lista.");
+			    		//insertar canciones en lista vacia
+	    	    		GestorListasReproduccion.getGestorListasReproduccion().crearListaCanciones(listaSeleccionadas, usuario, lista);
 						VListasReproduccion v;
 						v = new VListasReproduccion();
 						dispose();
@@ -130,11 +135,9 @@ public class VSeleccionarCanciones extends JFrame {
 	    	    else if(listaCheck != null ){
 	    	    	getYSetSeleccionados();
 	    	    	if(crearLista){
-	    	    		String lista=GestorListasReproduccion.getGestorListasReproduccion().getNombreListaSeleccionada();
-						String usuario= ControladorMusica.getControladorMusica().getUsuario().getNombre();
 	    	    		//if(GestorListasReproduccion.getGestorListasReproduccion().getCancionesLista(lista).size()==0){
-	    	    			//insertar canciones en lista vacia
-	    	    			GestorListasReproduccion.getGestorListasReproduccion().crearListaCanciones(listaSeleccionadas, usuario, lista);
+	    	    		//insertar canciones en lista vacia
+	    	    		GestorListasReproduccion.getGestorListasReproduccion().crearListaCanciones(listaSeleccionadas, usuario, lista);
 	    	    		
 	    	    		JOptionPane.showMessageDialog(null, "Ya hemos creado tu lista.");
 						VListasReproduccion v;
@@ -177,7 +180,7 @@ public class VSeleccionarCanciones extends JFrame {
 		}
 	    JScrollPane scroll = new JScrollPane(panelInsertar);
 	    
-	    reproducirTodas = new JRadioButton("Reproducir todas");
+	    reproducirTodas = new JRadioButton("Seleccionar todas");
 	    reproducirTodas.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
 	        	if(reproducirTodas.isSelected()){

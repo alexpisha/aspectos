@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 //import packCodigo.Partida;
 
@@ -214,26 +215,26 @@ public class SGBD {
 		return (contador > 0);
 	}
 	
-	public ArrayList<ListaReproduccion> getListasReprod(String pUsuario) {
-		
-		int id = Integer.parseInt(obtenerId(pUsuario));
+	public ArrayList<ListaReproduccion> getListasReprod(String pUsuario) { //TODO
 		ArrayList<ListaReproduccion> aDevolver = new ArrayList<ListaReproduccion>();
-		ListaReproduccion listaRepr = new ListaReproduccion(0,0,"","");
-			try {
-				String sentenciaSQL = "SELECT * FROM ListaReproduccion WHERE idUsuario='" + id + "';";
-				rs = sentencia.executeQuery(sentenciaSQL);
+		int id = Integer.parseInt(obtenerId(pUsuario));
+
+		try {
+			rs = sentencia.executeQuery("Select * from ListaReproduccion where idUsuario='" + id +"';");
+			while (rs.next()) {
+				int idLista=rs.getInt("id"); 
+				int idUser= rs.getInt("idUsuario");
+				String listaIds= rs.getString("listaIdCanciones");
+				String tituloLista= rs.getString("tituloLista");
 				
-				while (rs.next()) {
-					listaRepr = new ListaReproduccion(this.rs.getInt(1), this.rs.getInt(2), this.rs.getString(3),this.rs.getString(4));
-					aDevolver.add(listaRepr);
-				}
-
-			} catch (Exception e) {
-				e.printStackTrace();
-
-			
+				System.out.println(idLista+""+idUser+""+listaIds+""+tituloLista);
+				//aDevolver.add(new ListaReproduccion(idLista, idUser , listaIds, tituloLista));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();	
 		}
-		
+		System.out.println("size"+aDevolver.size());
+			
 		return aDevolver;
 	}
 	public Cancion obtenerCancion(String id) {
@@ -241,9 +242,8 @@ public class SGBD {
 		try {
 			rs = sentencia.executeQuery("Select * from Cancion where id='" + id + "';");
 			while (rs.next()) {
-				 cancion = new Cancion(this.rs.getInt(1), this.rs.getString(2), this.rs.getString(3),this.rs.getString(4),this.rs.getString(5));
+				 cancion = new Cancion(this.rs.getInt(1), this.rs.getString(3), this.rs.getString(2),this.rs.getString(4),this.rs.getString(5));
 			}
-			
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -270,6 +270,7 @@ public class SGBD {
 		// Devuelvo un numero para saber si ha sido correcto o no el ingreso
 		return id;
 	}
+	
 	public void modificarListaRepr(String pNombreLista, int pIdUsuario, String pListaCanciones, int idLista) {
 		try {
 			String sql= "Update ListaReproduccion set listaIdCanciones='" + pListaCanciones + "' where idUsuario='" + pIdUsuario +" AND tituloLista = "+pNombreLista+ "';";

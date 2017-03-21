@@ -58,9 +58,7 @@ public class VCrearLista extends JFrame {
 
 	public VCrearLista() {
 		setTitle("Crear lista de reproduccion");
-		
-		
-
+		Image iconPrincipal = new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage();
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 350);
