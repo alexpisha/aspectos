@@ -109,6 +109,13 @@ public class VSeleccionarCanciones extends JFrame {
 	        public void actionPerformed(ActionEvent e) {
 	    	    if(reproducirTodas.isSelected()){
 					if(crearLista){
+						String lista=GestorListasReproduccion.getGestorListasReproduccion().getNombreListaSeleccionada();
+						String usuario= ControladorMusica.getControladorMusica().getUsuario().getNombre();
+	    	    		//if(GestorListasReproduccion.getGestorListasReproduccion().getCancionesLista(lista).size()==0){
+	    	    			//insertar canciones en lista vacia
+	    	    			GestorListasReproduccion.getGestorListasReproduccion().crearListaCanciones(listaEntera, usuario, lista);
+	    	    		
+						listaSeleccionadas= listaEntera;
 						JOptionPane.showMessageDialog(null, "Ya hemos creado tu lista.");
 						VListasReproduccion v;
 						v = new VListasReproduccion();

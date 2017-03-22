@@ -118,10 +118,10 @@ public class VListasReproduccion extends JFrame  {
 
 		btnGestionar.setBounds(400, 400, 175, 45);
 		contentPane.add(btnGestionar);
-		JButton btnCrear = new JButton("Crear lista",new ImageIcon(boton));
+		JButton btnCrear = new JButton("Crear lista",new ImageIcon(boton));//FUNCIONA
 		
 		//btnAceptar.setBorder(new MatteBorder(2, 2, 2, 2, new Color(32, 102, 60)));
-		btnCrear.setBackground(new Color(245, 216, 218));
+		btnCrear.setBackground(new Color(245, 216, 218)); 
 		btnCrear.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnCrear.setVerticalTextPosition(SwingConstants.CENTER);
 		btnCrear.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -138,7 +138,7 @@ public class VListasReproduccion extends JFrame  {
 		btnCrear.setBounds(135, 400, 100, 45);
 		contentPane.add(btnCrear);
 		
-		JButton btnCancelar = new JButton("Atras",new ImageIcon(boton));
+		JButton btnCancelar = new JButton("Atras",new ImageIcon(boton)); //FUNCIONA
 		btnCancelar.setForeground(SystemColor.text);
 		//btnCancelar.setBorder(new MatteBorder(2, 2, 2, 2, new Color(115, 35, 41)));
 		btnCancelar.setBackground(new Color(245, 216, 218));
@@ -156,7 +156,7 @@ public class VListasReproduccion extends JFrame  {
 		
 		btnCancelar.setBounds(30, 400, 100, 45);
 		contentPane.add(btnCancelar);
-		JButton btnBorrar = new JButton("Borrar lista",new ImageIcon(boton));
+		JButton btnBorrar = new JButton("Borrar lista",new ImageIcon(boton)); //FUNCIONA
 		btnBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ButtonModel b= grupo.getSelection();
@@ -195,14 +195,11 @@ public class VListasReproduccion extends JFrame  {
 	private void addListas() {
 		String usuario=ControladorMusica.getControladorMusica().getUsuario().getNombre();
 		ArrayList<ListaReproduccion> lista = GestorListasReproduccion.getGestorListasReproduccion().getListasReprod(usuario);
+		imprimirLista(lista);
 		buttons = new JRadioButton[lista.size()];
 		
 		grupo = new ButtonGroup();
-		JScrollPane scrollPane = new JScrollPane() {
-			private static final long serialVersionUID = 1L;
-
-		};
-		scrollPane.setEnabled(false);
+		JScrollPane scrollPane = new JScrollPane();
 		panelRadioButtons = new JPanel() {
 			private static final long serialVersionUID = 1L;
 
@@ -219,14 +216,20 @@ public class VListasReproduccion extends JFrame  {
 		
 		for (ListaReproduccion unalista : lista) {
 			String nombre=unalista.getNombreLista();
+			System.out.println(nombre);
 			
 			JRadioButton btn = new JRadioButton(
 					"-->: " + nombre);
+			System.out.println(nombre);
 
 			//btn.addActionListener(this);
 			btn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					System.out.println(nombreLista);
+					System.out.println(nombre);
 					nombreLista = nombre;
+					System.out.println(nombre);
+					System.out.println(nombreLista);
 					
 				}
 			});
@@ -240,11 +243,11 @@ public class VListasReproduccion extends JFrame  {
 		if(buttons.length>0){
 			buttons[0].setSelected(true);
 		}
+		grupo.clearSelection();
 		scrollPane.setBounds(10, 47, 565, 342);
-		contentPane.add(scrollPane);
-
 		scrollPane.setViewportView(panelRadioButtons);
 		panelRadioButtons.setLayout(new GridLayout(lista.size(), 1));
+		contentPane.add(scrollPane);
 	}
 
 
@@ -253,6 +256,12 @@ public class VListasReproduccion extends JFrame  {
 
 	private void cerrar() {
 		this.dispose();
+	}
+	
+	private void imprimirLista(ArrayList<ListaReproduccion> lista){
+		for(int i=0; i<lista.size(); i++){
+			System.out.println(lista.get(i).getNombreLista());
+		}
 	}
 	
 	public void centrarFrame() {
