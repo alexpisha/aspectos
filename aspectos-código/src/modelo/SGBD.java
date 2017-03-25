@@ -199,22 +199,23 @@ public class SGBD {
 		return (contador > 0);
 	}
 	
-	public ArrayList<ListaReproduccion> getListasReprod(String pUsuario) { //TODO
+	public ArrayList<ListaReproduccion> getListasReprod(String pUsuario, int id) { //TODO
 		ArrayList<ListaReproduccion> aDevolver = new ArrayList<ListaReproduccion>();
-		int id = Integer.parseInt(obtenerId(pUsuario));
-
 		try {
-			rs = sentencia.executeQuery("Select * from ListaReproduccion where idUsuario='" + id +"';");
+			String sentenciaSQL = "SELECT * FROM ListaReproduccion WHERE idUsuario='" + id + "';";
+			rs = sentencia.executeQuery(sentenciaSQL);
 			while (rs.next()) {
 				int idLista=rs.getInt("id"); 
 				int idUser= rs.getInt("idUsuario");
 				String listaIds= rs.getString("listaIdCanciones");
 				String tituloLista= rs.getString("tituloLista");
-				
-				System.out.println(idLista+""+idUser+""+listaIds+""+tituloLista);
+				System.out.println(sentenciaSQL);
+				System.out.println(idLista+" "+idUser+" "+listaIds+" "+tituloLista);
 				//aDevolver.add(new ListaReproduccion(idLista, idUser , listaIds, tituloLista));
+				ListaReproduccion r =new ListaReproduccion(idLista, idUser, listaIds, tituloLista);
+				aDevolver.add(r);
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();	
 		}
 		System.out.println("size"+aDevolver.size());
@@ -264,7 +265,20 @@ public class SGBD {
 			e.printStackTrace();
 		}
 	}
+	public String getCancionesListaId(String nombreLista, int id) {
+		String canciones ="";
+			try {
+				rs = sentencia.executeQuery("Select listaIdCanciones from ListaReproduccion where tituloLista='" + nombreLista + "'AND idUsuario='"+id+"';");
+				while (rs.next()) {
+					 canciones =this.rs.getString(1);
+				}
+				
+			} catch (SQLException e) {
 
+				e.printStackTrace();
+			}
+			return canciones;
+		}
 
 	public String getCancionesLista(String nombreLista) {
 		String canciones ="";

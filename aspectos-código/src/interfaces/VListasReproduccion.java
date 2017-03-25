@@ -200,14 +200,7 @@ public class VListasReproduccion extends JFrame  {
 		
 		grupo = new ButtonGroup();
 		JScrollPane scrollPane = new JScrollPane();
-		panelRadioButtons = new JPanel() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void paintComponent(Graphics g) {
-				g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
-			}
-		};
+		panelRadioButtons = new JPanel();
 		panelRadioButtons.setBorder(new MatteBorder(1, 1, 1, 1, new Color(0, 0, 139)));
 		panelRadioButtons.setBackground(SystemColor.menu);
 		panelRadioButtons.setBounds(10, 47, 491, 203);
@@ -242,8 +235,9 @@ public class VListasReproduccion extends JFrame  {
 		}
 		if(buttons.length>0){
 			buttons[0].setSelected(true);
+			nombreLista = buttons[0].getName();
 		}
-		grupo.clearSelection();
+		//grupo.clearSelection();
 		scrollPane.setBounds(10, 47, 565, 342);
 		scrollPane.setViewportView(panelRadioButtons);
 		panelRadioButtons.setLayout(new GridLayout(lista.size(), 1));

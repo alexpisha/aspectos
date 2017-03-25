@@ -66,7 +66,8 @@ public class VGestionarLista extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
-		setListaEntera(GestorListasReproduccion.getGestorListasReproduccion().getCancionesLista(nombreLista));
+		String usuario=ControladorMusica.getControladorMusica().getUsuario().getNombre();
+		setListaEntera(GestorListasReproduccion.getGestorListasReproduccion().getCancionesListaId(nombreLista, usuario));
 		setListaCheck();
 		contentPane.add(getPanelTitulo(), BorderLayout.NORTH);
 		contentPane.add(getPanelInsertar(), BorderLayout.CENTER);
