@@ -64,7 +64,7 @@ public class VGestionarLista extends JFrame {
 		setTitle("EUITI MUSIC PLAYER 3");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 500, 350);
-		setResizable(false);
+		setResizable(true);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -141,6 +141,23 @@ public class VGestionarLista extends JFrame {
 				btnBorrar.setBounds(138, 211, 97, 25);
 				panelBotones.add(btnBorrar);
 				
+				JButton reproducir = new JButton("Reproducir Lista");
+				reproducir.addActionListener(new ActionListener() {
+			        public void actionPerformed(ActionEvent e) {
+			        	VEscucharCancion v;
+						try {
+							VEscucharCancion.setListaCanciones(listaEntera);
+							v = new VEscucharCancion();
+							v.setVisible(true);
+				        	dispose();
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+			        	
+			        }});
+				reproducir.setBounds(137, 211, 97, 25);
+				panelBotones.add(reproducir);
 		return panelBotones;
 	}
 	
@@ -163,11 +180,11 @@ public class VGestionarLista extends JFrame {
 	
 	private void setListaCheck(){
 		ArrayList<JCheckBox> lista= new ArrayList<JCheckBox>();
-		if(listaEntera.size()!=0){
+		
 		for(int i= 0; i<listaEntera.size();i++){
 			JCheckBox checkBox = new JCheckBox(listaEntera.get(i).getTitulo());
 			lista.add(checkBox);
-		}
+		
 		}
 		
 		listaCheck= lista;

@@ -223,11 +223,11 @@ public class SGBD {
 		return aDevolver;
 	}
 	public Cancion obtenerCancion(String id) {
-	Cancion cancion = new Cancion(0,"","","","");
+	Cancion cancion = null;
 		try {
 			rs = sentencia.executeQuery("Select * from Cancion where id='" + id + "';");
 			while (rs.next()) {
-				 cancion = new Cancion(this.rs.getInt(1), this.rs.getString(3), this.rs.getString(2),this.rs.getString(4),this.rs.getString(5));
+				  cancion = new Cancion(this.rs.getInt(1), this.rs.getString(3), this.rs.getString(2),this.rs.getString(4),this.rs.getString(5));
 			}
 		} catch (SQLException e) {
 

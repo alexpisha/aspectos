@@ -71,7 +71,9 @@ public class GestorListasReproduccion {
 		String[] lista = listaids.split(",");
 		for(int i =0; i< lista.length; i++){
 			Cancion c = SGBD.getSGBD().obtenerCancion(lista[i]);
+			if(c!=null){
 			canciones.add(c);
+			}
 		}
 		}
 		return 	canciones;
