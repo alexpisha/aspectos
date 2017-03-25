@@ -63,8 +63,8 @@ public class VGestionarLista extends JFrame {
 		setIconImage(iconPrincipal);
 		setTitle("EUITI MUSIC PLAYER 3");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 500, 350);
-		setResizable(true);
+		setBounds(100, 100, 600, 450);
+		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -163,6 +163,7 @@ public class VGestionarLista extends JFrame {
 	
 	private JScrollPane getPanelInsertar(){
 		JPanel panelInsertar = new JPanel();
+		panelInsertar.setAlignmentX(LEFT_ALIGNMENT);
 		panelInsertar.setLayout(new GridLayout(0, 1, 10, 10));
 		
 		for(int i=0; i<listaCheck.size(); i++){

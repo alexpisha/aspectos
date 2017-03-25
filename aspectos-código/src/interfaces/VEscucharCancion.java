@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -223,6 +224,7 @@ public class VEscucharCancion extends JFrame {
 		lblNewLabel_1.setIcon(new ImageIcon(VEscucharCancion.class.getResource("/imagenes/imagen_play.png")));
 		lblNewLabel_1.setBounds(0, 0, 589, 390);
 		contentPane.add(lblNewLabel_1);
+		centrarFrame();
 		}
 	
 		private void reproducir() throws Exception{
@@ -232,5 +234,17 @@ public class VEscucharCancion extends JFrame {
 			String ruta = aux[0]+"aspectos-código/bin/"+aux[1].split("/bin")[1];
 
 			rp.abrirFichero(ruta);
+		}
+		public void centrarFrame() {
+			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			Dimension frameSize = getSize(); // Tamaï¿½o del frame actual (ancho x
+												// alto)
+			if (frameSize.height > screenSize.height) {
+				frameSize.height = screenSize.height;
+			}
+			if (frameSize.width > screenSize.width) {
+				frameSize.width = screenSize.width;
+			}
+			setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
 		}
 }
