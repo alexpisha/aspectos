@@ -89,6 +89,14 @@ public class GestorListasReproduccion {
 		
 		
 	}
+	public void addCancionesLista(ArrayList<Cancion> lista, String usuario, String nombreLista){
+	
+		ArrayList<Cancion>canciones=getCancionesListaId(nombreLista, usuario);
+		for(int i=0; i<lista.size();i++){
+			canciones.add(lista.get(i));
+		}
+		crearListaCanciones(canciones, usuario, nombreLista);
+	}
 	public void borrarCancionesLista(ArrayList<Cancion> lista, String usuario, String nombreLista){
 		
 		ArrayList<Cancion>canciones=getCancionesListaId(nombreLista, usuario);

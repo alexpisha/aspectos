@@ -1,9 +1,11 @@
 package interfaces;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -73,6 +75,7 @@ public class VGestionarLista extends JFrame {
 		contentPane.add(getPanelInsertar(), BorderLayout.CENTER);
 		contentPane.add(getPanelBotones(), BorderLayout.SOUTH);
 		setContentPane(contentPane);
+		centrarFrame();
 
 	}
 	
@@ -108,6 +111,7 @@ public class VGestionarLista extends JFrame {
 	        public void actionPerformed(ActionEvent e) {
 	        	VElegirCanciones v= new VElegirCanciones();
 	        	GestorListasReproduccion.setNombreListaSeleccionada(nombreLista);
+	        	v.setAddCanciones();
 	        	v.setVisible(true);
 	        	dispose();
 	    	   
@@ -159,9 +163,11 @@ public class VGestionarLista extends JFrame {
 	
 	private void setListaCheck(){
 		ArrayList<JCheckBox> lista= new ArrayList<JCheckBox>();
+		if(listaEntera.size()!=0){
 		for(int i= 0; i<listaEntera.size();i++){
 			JCheckBox checkBox = new JCheckBox(listaEntera.get(i).getTitulo());
 			lista.add(checkBox);
+		}
 		}
 		
 		listaCheck= lista;
@@ -180,7 +186,18 @@ public class VGestionarLista extends JFrame {
 		listaSeleccionadas= lista;
 		
 	}
-	
+	public void centrarFrame() {
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension frameSize = getSize(); // Tama�o del frame actual (ancho x
+											// alto)
+		if (frameSize.height > screenSize.height) {
+			frameSize.height = screenSize.height;
+		}
+		if (frameSize.width > screenSize.width) {
+			frameSize.width = screenSize.width;
+		}
+		setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
+	}
 
 }
 

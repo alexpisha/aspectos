@@ -1,6 +1,7 @@
 package interfaces;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -10,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import java.awt.Font;
+import java.awt.Toolkit;
 
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
@@ -36,6 +38,7 @@ public class VElegirCanciones extends JFrame {
 	private JCheckBox chckbx;
 	private static ArrayList<Cancion> lista;
 	private boolean crearLista=false;
+	private boolean addCanciones=false;
 
 
 	/**
@@ -113,6 +116,9 @@ public class VElegirCanciones extends JFrame {
 					if(crearLista){
 						v.setCrearLista();
 					}
+					if(addCanciones){
+						v.setAddCanciones();
+					}
 					setVisible(false);
 					v.setVisible(true);
 				}
@@ -144,6 +150,7 @@ public class VElegirCanciones extends JFrame {
 		chckbx = new JCheckBox("No deseo buscar canciones por t\u00EDtulo o autor.");
 		chckbx.setBounds(10, 81, 321, 25);
 		contentPane.add(chckbx);
+		centrarFrame();
 		
 	}
 	
@@ -153,5 +160,20 @@ public class VElegirCanciones extends JFrame {
 	
 	public void setCrearLista(){
 		crearLista= !crearLista;
+	}
+	public void setAddCanciones(){
+		addCanciones= !addCanciones;
+	}
+	public void centrarFrame() {
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension frameSize = getSize(); // Tama�o del frame actual (ancho x
+											// alto)
+		if (frameSize.height > screenSize.height) {
+			frameSize.height = screenSize.height;
+		}
+		if (frameSize.width > screenSize.width) {
+			frameSize.width = screenSize.width;
+		}
+		setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
 	}
 }

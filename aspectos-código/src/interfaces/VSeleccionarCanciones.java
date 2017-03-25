@@ -1,9 +1,11 @@
 package interfaces;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -36,6 +38,7 @@ public class VSeleccionarCanciones extends JFrame {
 	private ArrayList<Cancion> listaSeleccionadas;
 	private JRadioButton reproducirTodas;
 	private boolean crearLista=false;
+	private boolean addCanciones=false;
 
 
 	/**
@@ -74,6 +77,7 @@ public class VSeleccionarCanciones extends JFrame {
 		contentPane.add(getPanelInsertar(), BorderLayout.CENTER);
 		contentPane.add(getPanelBotones(), BorderLayout.SOUTH);
 		setContentPane(contentPane);
+		centrarFrame();
 
 	}
 	
@@ -110,7 +114,17 @@ public class VSeleccionarCanciones extends JFrame {
 	        	String lista=GestorListasReproduccion.getGestorListasReproduccion().getNombreListaSeleccionada();
 				String usuario= ControladorMusica.getControladorMusica().getUsuario().getNombre();
 	    	    if(reproducirTodas.isSelected()){
-					if(crearLista){
+	    	    	if(addCanciones){
+	    	    		GestorListasReproduccion.getGestorListasReproduccion().addCancionesLista(listaEntera, usuario, lista);
+	    	    		
+	    	    		JOptionPane.showMessageDialog(null, "Ya hemos añadido las canciones a tu lista.");
+						VGestionarLista v;
+						v = new VGestionarLista(lista);
+						dispose();
+						v.setVisible(true);
+	    	    	}
+	    	    	
+	    	    	else if(crearLista){
 
 						
 	    	    		//if(GestorListasReproduccion.getGestorListasReproduccion().getCancionesLista(lista).size()==0){
@@ -140,7 +154,16 @@ public class VSeleccionarCanciones extends JFrame {
 	    	    }
 	    	    else if(listaCheck != null ){
 	    	    	getYSetSeleccionados();
-	    	    	if(crearLista){
+	    	    	if(addCanciones){
+	    	    		GestorListasReproduccion.getGestorListasReproduccion().addCancionesLista(listaSeleccionadas, usuario, lista);
+	    	    		
+	    	    		JOptionPane.showMessageDialog(null, "Ya hemos añadido las canciones a tu lista.");
+						VGestionarLista v;
+						v = new VGestionarLista(lista);
+						dispose();
+						v.setVisible(true);
+	    	    	}
+	    	    	else if(crearLista){
 	    	    		//if(GestorListasReproduccion.getGestorListasReproduccion().getCancionesLista(lista).size()==0){
 	    	    		//insertar canciones en lista vacia
 	    	    		GestorListasReproduccion.getGestorListasReproduccion().crearListaCanciones(listaSeleccionadas, usuario, lista);
@@ -235,7 +258,21 @@ public class VSeleccionarCanciones extends JFrame {
 	public void setCrearLista(){
 		crearLista= !crearLista;
 	}
-	
+	public void setAddCanciones(){
+		addCanciones= !addCanciones;
+	}
+	public void centrarFrame() {
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension frameSize = getSize(); // Tamaï¿½o del frame actual (ancho x
+											// alto)
+		if (frameSize.height > screenSize.height) {
+			frameSize.height = screenSize.height;
+		}
+		if (frameSize.width > screenSize.width) {
+			frameSize.width = screenSize.width;
+		}
+		setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
+	}
 
 }
 
