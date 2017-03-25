@@ -27,6 +27,8 @@ import modelo.ControladorMusica;
 import modelo.GestorListasReproduccion;
 
 import java.awt.GridLayout;
+import java.awt.Component;
+import java.awt.FlowLayout;
 
 public class VGestionarLista extends JFrame {
 
@@ -93,6 +95,7 @@ public class VGestionarLista extends JFrame {
 
 	private JPanel getPanelBotones(){
 		JPanel panelBotones = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panelBotones.getLayout();
 				
 		
 		JButton cancelar = new JButton("Volver");
@@ -163,12 +166,13 @@ public class VGestionarLista extends JFrame {
 	
 	private JScrollPane getPanelInsertar(){
 		JPanel panelInsertar = new JPanel();
-		panelInsertar.setAlignmentX(LEFT_ALIGNMENT);
+		panelInsertar.setAlignmentX(Component.LEFT_ALIGNMENT);
 		panelInsertar.setLayout(new GridLayout(0, 1, 10, 10));
 		
 		for(int i=0; i<listaCheck.size(); i++){
 			JCheckBox checkbox = listaCheck.get(i);
-			checkbox.setHorizontalAlignment(SwingConstants.CENTER);
+			checkbox.setHorizontalAlignment(SwingConstants.LEFT);
+			checkbox.setVerticalAlignment(SwingConstants.TOP);
 			panelInsertar.add(checkbox);
 		}
 	    JScrollPane scroll = new JScrollPane(panelInsertar);

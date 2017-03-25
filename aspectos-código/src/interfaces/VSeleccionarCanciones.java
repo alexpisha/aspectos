@@ -204,7 +204,8 @@ public class VSeleccionarCanciones extends JFrame {
 		
 		for(int i=0; i<listaCheck.size(); i++){
 			JCheckBox checkbox = listaCheck.get(i);
-			checkbox.setHorizontalAlignment(SwingConstants.CENTER);
+			checkbox.setHorizontalAlignment(SwingConstants.LEFT);
+			checkbox.setVerticalAlignment(SwingConstants.TOP);
 			panelInsertar.add(checkbox);
 		}
 	    JScrollPane scroll = new JScrollPane(panelInsertar);
