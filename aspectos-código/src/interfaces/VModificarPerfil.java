@@ -86,7 +86,8 @@ public class VModificarPerfil extends JFrame {
 		lblUser.setBounds(23, 30, 71, 46);
 		panelInsertar.add(lblUser);
 		
-		textUser = new JTextField(ControladorMusica.getControladorMusica().getUsuario().getNombre());
+		String aux1= ControladorMusica.getControladorMusica().getUsuario().getNombre();
+		textUser = new JTextField(aux1);
 		textUser.setBounds(138, 43, 272, 22);
 		panelInsertar.add(textUser);
 		textUser.setColumns(10);
@@ -96,8 +97,8 @@ public class VModificarPerfil extends JFrame {
 		lblPass.setBounds(23, 94, 97, 22);
 		panelInsertar.add(lblPass);
 		
-		
-		textPass = new JPasswordField(ControladorMusica.getControladorMusica().getUsuario().getContrasena());
+		String aux2 = ControladorMusica.getControladorMusica().getUsuario().getContrasena();
+		textPass = new JPasswordField(aux2);
 		textPass.setBounds(138, 95, 272, 23);
 		panelInsertar.add(textPass);
 		textPass.setColumns(10);
@@ -107,7 +108,8 @@ public class VModificarPerfil extends JFrame {
 		label.setBounds(23, 141, 97, 22);
 		panelInsertar.add(label);
 		
-		textEmail = new JTextField(ControladorMusica.getControladorMusica().getUsuario().getEmail());
+		String aux3 = ControladorMusica.getControladorMusica().getUsuario().getEmail();
+		textEmail = new JTextField(aux3);
 		textEmail.setColumns(10);
 		textEmail.setBounds(138, 142, 272, 22);
 		panelInsertar.add(textEmail);
@@ -120,17 +122,26 @@ public class VModificarPerfil extends JFrame {
 	            String email= textEmail.getText();
 	            Usuario usuarioActual = ControladorMusica.getControladorMusica().getUsuario();
 	            int id= Integer.parseInt(SGBD.getSGBD().obtenerId(usuarioActual.getNombre()));
-	            System.out.println("el id es"+id);
-	            
+	            boolean cambiado = true;
 	            
 	            if(user.isEmpty() && pass.isEmpty() && email.isEmpty()){
 					JOptionPane.showMessageDialog(null, "No has rellenado nigún campo. Pulsa aceptar e inténtalo de nuevo.");
+					cambiado = !cambiado;
+	            }else if(aux1.equals(user) && aux2.equals(pass) && aux3.equals(email)){
+	            	cambiado = !cambiado;
+					JOptionPane.showMessageDialog(null, "No has modificado ninguno de tus datos personales. Pulsa aceptar e inténtalo de nuevo.");
 	            }else{
 	            	if(!user.isEmpty()){
 	            		try {
-		            		String sql= "Update Usuario set nombre='"+user+"' where id='"+id+"'";
-							SGBD.getSGBD().actualizar(sql);
-							ControladorMusica.getControladorMusica().actualizarNombre(user);
+	            			if(!SGBD.getSGBD().existeUsuario(user)){
+			            		String sql= "Update Usuario set nombre='"+user+"' where id='"+id+"'";
+								SGBD.getSGBD().actualizar(sql);
+								ControladorMusica.getControladorMusica().actualizarNombre(user);
+	            			}else{
+	        					JOptionPane.showMessageDialog(null, "Lo sentimos, el nombre de usuario ya existe. Elige otro e inténtalo de nuevo.");
+	        					cambiado = !cambiado;
+	        					
+	            			}
 	            		} catch (SQLException e1) {
 							e1.printStackTrace();
 						}
@@ -155,7 +166,9 @@ public class VModificarPerfil extends JFrame {
 							e1.printStackTrace();
 						}
 	            	}
-					JOptionPane.showMessageDialog(null, "Ya hemos modificado tus datos personales.");
+	            	if(cambiado){
+	            		JOptionPane.showMessageDialog(null, "Ya hemos modificado tus datos personales.");
+	            	}
 					System.out.println(usuarioActual.getNombre()+"-"+usuarioActual.getContrasena()+"-"+usuarioActual.getEmail());
 					VMenu v = new VMenu();
 					v.setVisible(true);
