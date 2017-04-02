@@ -1,9 +1,11 @@
 package interfaces;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -25,6 +27,8 @@ import modelo.ControladorMusica;
 import modelo.GestorListasReproduccion;
 
 import java.awt.GridLayout;
+import java.awt.Component;
+import java.awt.FlowLayout;
 
 public class VGestionarLista extends JFrame {
 
@@ -61,17 +65,19 @@ public class VGestionarLista extends JFrame {
 		setIconImage(iconPrincipal);
 		setTitle("EUITI MUSIC PLAYER 3");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 500, 350);
+		setBounds(100, 100, 600, 450);
 		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
-		setListaEntera(GestorListasReproduccion.getGestorListasReproduccion().getCancionesLista(nombreLista));
+		String usuario=ControladorMusica.getControladorMusica().getUsuario().getNombre();
+		setListaEntera(GestorListasReproduccion.getGestorListasReproduccion().getCancionesListaId(nombreLista, usuario));
 		setListaCheck();
 		contentPane.add(getPanelTitulo(), BorderLayout.NORTH);
 		contentPane.add(getPanelInsertar(), BorderLayout.CENTER);
 		contentPane.add(getPanelBotones(), BorderLayout.SOUTH);
 		setContentPane(contentPane);
+		centrarFrame();
 
 	}
 	
@@ -89,6 +95,7 @@ public class VGestionarLista extends JFrame {
 
 	private JPanel getPanelBotones(){
 		JPanel panelBotones = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panelBotones.getLayout();
 				
 		
 		JButton cancelar = new JButton("Volver");
@@ -107,6 +114,7 @@ public class VGestionarLista extends JFrame {
 	        public void actionPerformed(ActionEvent e) {
 	        	VElegirCanciones v= new VElegirCanciones();
 	        	GestorListasReproduccion.setNombreListaSeleccionada(nombreLista);
+	        	v.setAddCanciones();
 	        	v.setVisible(true);
 	        	dispose();
 	    	   
@@ -136,16 +144,35 @@ public class VGestionarLista extends JFrame {
 				btnBorrar.setBounds(138, 211, 97, 25);
 				panelBotones.add(btnBorrar);
 				
+				JButton reproducir = new JButton("Reproducir Lista");
+				reproducir.addActionListener(new ActionListener() {
+			        public void actionPerformed(ActionEvent e) {
+			        	VEscucharCancion v;
+						try {
+							VEscucharCancion.setListaCanciones(listaEntera);
+							v = new VEscucharCancion();
+							v.setVisible(true);
+				        	dispose();
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+			        	
+			        }});
+				reproducir.setBounds(137, 211, 97, 25);
+				panelBotones.add(reproducir);
 		return panelBotones;
 	}
 	
 	private JScrollPane getPanelInsertar(){
 		JPanel panelInsertar = new JPanel();
+		panelInsertar.setAlignmentX(Component.LEFT_ALIGNMENT);
 		panelInsertar.setLayout(new GridLayout(0, 1, 10, 10));
 		
 		for(int i=0; i<listaCheck.size(); i++){
 			JCheckBox checkbox = listaCheck.get(i);
-			checkbox.setHorizontalAlignment(SwingConstants.CENTER);
+			checkbox.setHorizontalAlignment(SwingConstants.LEFT);
+			checkbox.setVerticalAlignment(SwingConstants.TOP);
 			panelInsertar.add(checkbox);
 		}
 	    JScrollPane scroll = new JScrollPane(panelInsertar);
@@ -158,9 +185,11 @@ public class VGestionarLista extends JFrame {
 	
 	private void setListaCheck(){
 		ArrayList<JCheckBox> lista= new ArrayList<JCheckBox>();
+		
 		for(int i= 0; i<listaEntera.size();i++){
 			JCheckBox checkBox = new JCheckBox(listaEntera.get(i).getTitulo());
 			lista.add(checkBox);
+		
 		}
 		
 		listaCheck= lista;
@@ -179,7 +208,18 @@ public class VGestionarLista extends JFrame {
 		listaSeleccionadas= lista;
 		
 	}
-	
+	public void centrarFrame() {
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension frameSize = getSize(); // Tama�o del frame actual (ancho x
+											// alto)
+		if (frameSize.height > screenSize.height) {
+			frameSize.height = screenSize.height;
+		}
+		if (frameSize.width > screenSize.width) {
+			frameSize.width = screenSize.width;
+		}
+		setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
+	}
 
 }
 

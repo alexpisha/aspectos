@@ -157,24 +157,8 @@ public class SGBD {
 
 	
 	
-	/**
-	 * Comprueba si en la BD hay jugadores
-	 * 
-	 * @return
-	 */
-	public boolean existenJugadores() {
-		int contador = 0;
-		try {
-			rs = sentencia.executeQuery("Select count(*) from jugador;");
-			rs.next();
-			contador = rs.getInt("COUNT(*)");
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		}
-		// Si el contador es igual a 0 no hay jugadores en la BD
-		return (contador > 0);
-	}
+	
+	
 	public boolean existenListasReprod(String pUsuario) {
 		int contador = 0;
 		try {
@@ -215,22 +199,23 @@ public class SGBD {
 		return (contador > 0);
 	}
 	
-	public ArrayList<ListaReproduccion> getListasReprod(String pUsuario) { //TODO
+	public ArrayList<ListaReproduccion> getListasReprod(String pUsuario, int id) { //TODO
 		ArrayList<ListaReproduccion> aDevolver = new ArrayList<ListaReproduccion>();
-		int id = Integer.parseInt(obtenerId(pUsuario));
-
 		try {
-			rs = sentencia.executeQuery("Select * from ListaReproduccion where idUsuario='" + id +"';");
+			String sentenciaSQL = "SELECT * FROM ListaReproduccion WHERE idUsuario='" + id + "';";
+			rs = sentencia.executeQuery(sentenciaSQL);
 			while (rs.next()) {
 				int idLista=rs.getInt("id"); 
 				int idUser= rs.getInt("idUsuario");
 				String listaIds= rs.getString("listaIdCanciones");
 				String tituloLista= rs.getString("tituloLista");
-				
-				System.out.println(idLista+""+idUser+""+listaIds+""+tituloLista);
+				System.out.println(sentenciaSQL);
+				System.out.println(idLista+" "+idUser+" "+listaIds+" "+tituloLista);
 				//aDevolver.add(new ListaReproduccion(idLista, idUser , listaIds, tituloLista));
+				ListaReproduccion r =new ListaReproduccion(idLista, idUser, listaIds, tituloLista);
+				aDevolver.add(r);
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();	
 		}
 		System.out.println("size"+aDevolver.size());
@@ -238,11 +223,11 @@ public class SGBD {
 		return aDevolver;
 	}
 	public Cancion obtenerCancion(String id) {
-	Cancion cancion = new Cancion(0,"","","","");
+	Cancion cancion = null;
 		try {
 			rs = sentencia.executeQuery("Select * from Cancion where id='" + id + "';");
 			while (rs.next()) {
-				 cancion = new Cancion(this.rs.getInt(1), this.rs.getString(3), this.rs.getString(2),this.rs.getString(4),this.rs.getString(5));
+				  cancion = new Cancion(this.rs.getInt(1), this.rs.getString(3), this.rs.getString(2),this.rs.getString(4),this.rs.getString(5));
 			}
 		} catch (SQLException e) {
 
@@ -280,7 +265,20 @@ public class SGBD {
 			e.printStackTrace();
 		}
 	}
+	public String getCancionesListaId(String nombreLista, int id) {
+		String canciones ="";
+			try {
+				rs = sentencia.executeQuery("Select listaIdCanciones from ListaReproduccion where tituloLista='" + nombreLista + "'AND idUsuario='"+id+"';");
+				while (rs.next()) {
+					 canciones =this.rs.getString(1);
+				}
+				
+			} catch (SQLException e) {
 
+				e.printStackTrace();
+			}
+			return canciones;
+		}
 
 	public String getCancionesLista(String nombreLista) {
 		String canciones ="";

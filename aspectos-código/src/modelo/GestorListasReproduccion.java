@@ -42,7 +42,8 @@ public class GestorListasReproduccion {
 	}
 	
 	public ArrayList<ListaReproduccion> getListasReprod(String pUsuario) {
-		return (SGBD.getSGBD().getListasReprod(pUsuario));
+		int id= Integer.parseInt(SGBD.getSGBD().obtenerId(pUsuario));
+		return (SGBD.getSGBD().getListasReprod(pUsuario, id));
 	}
 	
 	public int eliminarListaRep(String pNombreLista){
@@ -62,7 +63,21 @@ public class GestorListasReproduccion {
 		}
 		return 	canciones;
 	}
-	
+	public ArrayList<Cancion> getCancionesListaId(String pNombreLista, String usuario) {
+		int id= Integer.parseInt(SGBD.getSGBD().obtenerId(usuario));
+		ArrayList<Cancion> canciones = new ArrayList<Cancion>();
+		String listaids = SGBD.getSGBD().getCancionesListaId(pNombreLista, id);
+		if(listaids!=null){
+		String[] lista = listaids.split(",");
+		for(int i =0; i< lista.length; i++){
+			Cancion c = SGBD.getSGBD().obtenerCancion(lista[i]);
+			if(c!=null){
+			canciones.add(c);
+			}
+		}
+		}
+		return 	canciones;
+	}
 	public void crearListaCanciones(ArrayList<Cancion> lista, String usuario, String nombreLista){
 		String listaIds="";
 		for (int i = 0; i < lista.size(); i++) {
@@ -76,13 +91,29 @@ public class GestorListasReproduccion {
 		
 		
 	}
+	public void addCancionesLista(ArrayList<Cancion> lista, String usuario, String nombreLista){
+	
+		ArrayList<Cancion>canciones=getCancionesListaId(nombreLista, usuario);
+		for(int i=0; i<lista.size();i++){
+			canciones.add(lista.get(i));
+		}
+		crearListaCanciones(canciones, usuario, nombreLista);
+	}
 	public void borrarCancionesLista(ArrayList<Cancion> lista, String usuario, String nombreLista){
-		ArrayList<Cancion>canciones=getCancionesLista(nombreLista);
-		for(int i=0;i<lista.size();i++){
-			if(canciones.contains((lista).get(i))){
-				canciones.remove(lista.get(i));
+		
+		ArrayList<Cancion>canciones=getCancionesListaId(nombreLista, usuario);
+		for(int i=0; i<lista.size();i++){
+			for(int j=0;j<canciones.size();j++){
+				if(canciones.get(j).getId()==lista.get(i).getId()){
+					canciones.remove(j);
+				}
 			}
 		}
+		
+		
+		
+		
+		
 		crearListaCanciones(canciones, usuario, nombreLista);
 		
 		
