@@ -134,7 +134,7 @@ public class VModificarPerfil extends JFrame {
 	            	cambiado = !cambiado;
 					JOptionPane.showMessageDialog(null, "No has modificado ninguno de tus datos personales. Pulsa aceptar e inténtalo de nuevo.");
 	            }else{
-	            	if(!user.isEmpty()){
+	            	if(!aux1.equals(user)){
 	            		try {
 	            			if(!SGBD.getSGBD().existeUsuario(user)){
 			            		String sql= "Update Usuario set nombre='"+user+"' where id='"+id+"'";
