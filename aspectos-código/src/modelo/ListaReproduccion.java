@@ -7,21 +7,21 @@ public class ListaReproduccion {
 	private String nombreLista;
 	private int idUsuario;
 	private ArrayList<Cancion> listaCanciones = new ArrayList<Cancion>();
+	private String listaIdCanciones="";
 	
 	public ListaReproduccion(int id, int idUsuario, String listaIdCanciones, String nombreLista) {
 		this.id=id;
 		this.idUsuario=idUsuario;
 		this.nombreLista=nombreLista;
-		if(listaIdCanciones!=null){
-		String[] canciones =listaIdCanciones.split(",");
-		for(int i=0; i<canciones.length; i++){
-			Cancion c = SGBD.getSGBD().obtCancion(canciones[i].toString());
-			this.listaCanciones.add(c);
-			
-		}
-		}
+		this.listaIdCanciones=listaIdCanciones;
 	}
 	
+	public void setListaCanciones(ArrayList<Cancion> listaIdCanciones){
+		this.listaCanciones=listaIdCanciones;
+	}
+	public String getListaIdCanciones(){
+		return this.listaIdCanciones;
+	}
 	public ArrayList<Cancion> getLista() {
 		return listaCanciones;
 	}

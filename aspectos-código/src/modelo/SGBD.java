@@ -204,6 +204,7 @@ public class SGBD {
 		try {
 			String sentenciaSQL = "SELECT * FROM ListaReproduccion WHERE idUsuario='" + id + "';";
 			rs = sentencia.executeQuery(sentenciaSQL);
+		
 			while (rs.next()) {
 				int idLista=rs.getInt("id"); 
 				int idUser= rs.getInt("idUsuario");
@@ -217,6 +218,18 @@ public class SGBD {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();	
+		}
+		ArrayList<Cancion> listaCanciones=new ArrayList<Cancion>();
+		for(int i=0; i<aDevolver.size(); i++){
+		if(aDevolver.get(i).getListaIdCanciones() !=null){
+			String[] canciones =aDevolver.get(i).getListaIdCanciones().split(",");
+			for(int j=0; j<canciones.length; j++){
+				Cancion c = SGBD.getSGBD().obtCancion(canciones[j].toString());
+				listaCanciones.add(c);
+				
+			}
+			}
+		aDevolver.get(i).setListaCanciones(listaCanciones);
 		}
 		System.out.println("size"+aDevolver.size());
 			
