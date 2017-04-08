@@ -1,2 +1,7 @@
 /canciones/Despacito_LuisFonsiDaddyYankee_Pop_.mp3
 /canciones/DueleElCorazon_EnriqueIglesias_Pop_.mp3
+/canciones/DejaVu_ShakiraPrinceRoyce_Bachata_.mp3
+/canciones/AndoBuscando_CarlosBautePiso21_Pop_.mp3
+/canciones/Sugar_Maroon5_Pop_.mp3
+/canciones/LaCasaNoEsIgual_Melendi_Pop_.mp3
+/canciones/VentePaCa_RickyMartimMaluma_Pop_.mp3
