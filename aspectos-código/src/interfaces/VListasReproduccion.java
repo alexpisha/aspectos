@@ -1,5 +1,6 @@
 package interfaces;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -89,9 +90,8 @@ public class VListasReproduccion extends JFrame  {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblListasReproduccion = new JLabel("Listas de Reproduccion");
-		lblListasReproduccion.setForeground(Color.WHITE);
-		lblListasReproduccion.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		JLabel lblListasReproduccion = new JLabel("Listas de Reproducción");		
+		lblListasReproduccion.setFont(new Font("Arial", Font.BOLD, 26));
 		lblListasReproduccion.setHorizontalAlignment(SwingConstants.CENTER);
 		lblListasReproduccion.setBounds(108, 11, 318, 25);
 		contentPane.add(lblListasReproduccion);
